@@ -1,0 +1,2594 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Döllük Cumhurbaşkanlığı Yönetim v20</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f6;color:#172033}
+header{background:#163a5a;color:#fff;padding:20px 16px;text-align:center}
+header h1{margin:0 0 6px;font-size:27px}
+header p{margin:0;opacity:.9}
+main{max-width:1100px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:18px;padding:20px;margin:14px 0;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.hidden{display:none!important}
+.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.role{border:2px solid #dbe3eb;border-radius:16px;padding:18px;text-align:center;background:#fafcfe}
+.icon{font-size:40px}.name{font-size:21px;font-weight:800;margin:8px 0}.desc{color:#637286}
+button,input,textarea{font:inherit}
+button{border:0;border-radius:11px;padding:12px 15px;background:#163a5a;color:#fff;font-weight:700;cursor:pointer}
+button:hover{opacity:.92}
+button:disabled{opacity:.5;cursor:not-allowed}
+.full{width:100%;margin-top:10px}
+.danger{background:#b42318}.success{background:#177245}.secondary{background:#697789}.gold{background:#8b6500}
+input,textarea{width:100%;padding:12px;border:1px solid #cdd6e0;border-radius:11px;margin:7px 0;background:#fff}
+textarea{min-height:100px;resize:vertical}
+.nav{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.info{background:#f4f7fa;border-radius:14px;padding:15px;text-align:center}
+.info strong{display:block;font-size:24px}
+.perm,.notice{padding:13px;background:#f7f9fb;border-radius:11px;margin:7px 0}
+.perm{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.badge{padding:5px 9px;border-radius:999px;background:#e5edf5;font-size:12px;font-weight:800}
+.status{padding:11px;border-radius:10px;background:#f4f7fa;font-size:13px}
+.status.ok{background:#eaf7ef}.status.warn{background:#fff5dc}.status.bad{background:#fdecec}
+.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.message{border:1px solid #dce3ea;border-radius:14px;padding:13px;margin:9px 0}
+.message.me{border-left:5px solid #177245}
+.message b{display:block}
+.meta{font-size:12px;color:#697789;margin-top:5px}
+.chatbox{max-height:430px;overflow:auto;border:1px solid #e4e8ee;border-radius:12px;padding:8px}
+.pdfbox{border:2px dashed #c6d1dc;padding:18px;border-radius:14px;text-align:center;background:#fafcfe}
+.news{border:1px solid #dce3ea;border-radius:14px;padding:16px;margin:10px 0}
+.news h3{margin:9px 0}
+.president-banner{background:linear-gradient(135deg,#163a5a,#24577f);color:#fff}
+.small{font-size:13px;color:#697789}
+.game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.game-card{border:1px solid #dce3ea;border-radius:14px;padding:16px;background:#fafcfe}
+.scoreboard{font-size:30px;font-weight:800;text-align:center;margin:12px 0}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{padding:10px 8px;border-bottom:1px solid #e4e8ee;text-align:center}
+th{background:#f4f7fa}
+td.team{text-align:left;font-weight:800}
+.rank{font-weight:900;width:45px}
+.edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.edit-grid input{margin:0}
+.top-score{display:flex;justify-content:space-between;padding:10px;background:#f7f9fb;border-radius:10px;margin:6px 0}.wallet{background:linear-gradient(135deg,#fff8d9,#f5e7a6);border:2px solid #d3b94b}.wallet-money{font-size:34px;font-weight:900}.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.shop-item{border:1px solid #dce3ea;border-radius:14px;padding:15px;background:#fafcfe}.shop-price{font-size:19px;font-weight:900;margin:9px 0}.shop-owned{font-size:12px;font-weight:800;color:#177245}.profile-title{font-weight:900;font-size:18px}.wheel{width:240px;height:240px;border-radius:50%;margin:15px auto;border:10px solid #163a5a;background:conic-gradient(#f5d76e 0 12.5%,#dceaf7 12.5% 25%,#f4b4b4 25% 37.5%,#d9efc9 37.5% 50%,#f5d76e 50% 62.5%,#dceaf7 62.5% 75%,#f4b4b4 75% 87.5%,#d9efc9 87.5% 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px #0002;transition:transform 2.2s cubic-bezier(.15,.75,.2,1)}.wheel-center{width:72px;height:72px;border-radius:50%;background:#fff;border:5px solid #163a5a;display:flex;align-items:center;justify-content:center;font-weight:900}.wheel-pointer{text-align:center;font-size:26px;margin-bottom:-4px}@media(max-width:800px){.shop-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.shop-grid{grid-template-columns:1fr}}
+@media(max-width:800px){
+ .nav{grid-template-columns:1fr 1fr}
+ .info-grid,.action-grid,.game-grid{grid-template-columns:1fr}
+ .role-grid{grid-template-columns:1fr}
+ .edit-grid{grid-template-columns:1fr}
+ header h1{font-size:23px}
+}
+
+.salary-me{font-weight:900}
+.salary-you{background:#f3f8fc}
+
+
+.notification-wrap{position:relative;display:inline-block}
+.bell-btn{position:relative;background:#8b6500}
+.bell-count{position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;padding:2px 6px;border-radius:999px;background:#b42318;color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.notifications{max-height:520px;overflow:auto}
+.notification{padding:14px;border:1px solid #dce3ea;border-radius:13px;margin:8px 0;background:#fff}
+.notification.unread{border-left:5px solid #163a5a;background:#f7fbff}
+.notification-title{font-weight:900}
+.notification-time{font-size:12px;color:#697789;margin-top:4px}
+
+
+.city-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.city-card{border:1px solid #dce3ea;border-radius:14px;padding:16px;background:#fafcfe}
+.city-pop{font-size:25px;font-weight:900;margin:8px 0}
+.city-meter{height:10px;background:#e6ebf0;border-radius:999px;overflow:hidden;margin:8px 0}
+.city-meter>span{display:block;height:100%;background:#163a5a;border-radius:999px}
+.announcement{border:1px solid #dce3ea;border-radius:14px;padding:15px;margin:9px 0}
+.announcement.me{border-left:5px solid #177245}
+.announcement-title{font-size:18px;font-weight:900}
+.voice-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:750px){.city-grid{grid-template-columns:1fr 1fr}.voice-controls{grid-template-columns:1fr}}
+@media(max-width:560px){.city-grid{grid-template-columns:1fr}}
+
+
+.trade-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.trade-card,.house-card,.stock-card{border:1px solid #dce3ea;border-radius:14px;padding:16px;background:#fafcfe}
+.house-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.house-level{font-size:28px;font-weight:900}
+.stock-up{color:#177245;font-weight:900}
+.stock-down{color:#b42318;font-weight:900}
+.stock-flat{color:#697789;font-weight:900}
+.stock-table td,.stock-table th{white-space:nowrap}
+.market-ticker{display:flex;gap:10px;overflow:auto;padding:8px 0}
+.ticker-item{min-width:150px;border:1px solid #dce3ea;border-radius:12px;padding:10px;background:#fff}
+.transfer-box{background:#f7fafc;border:1px solid #dce3ea;border-radius:14px;padding:14px}
+
+
+.traffic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.traffic-card{border:1px solid #dce3ea;border-radius:14px;padding:16px;background:#fafcfe}
+.traffic-stat{font-size:28px;font-weight:900}
+.traffic-good{color:#177245;font-weight:900}.traffic-warn{color:#8b6500;font-weight:900}.traffic-bad{color:#b42318;font-weight:900}
+@media(max-width:700px){.traffic-grid{grid-template-columns:1fr}}
+
+
+.maps-shell{display:grid;grid-template-columns:320px 1fr;gap:14px}
+.maps-search{position:sticky;top:0}
+.map-panel{min-height:620px;border-radius:18px;overflow:hidden;border:1px solid #cfd8e3;background:#dbe8ef;position:relative}
+.map-canvas{position:absolute;inset:0;background:
+linear-gradient(25deg,transparent 47%,#c6d1da 48%,#c6d1da 52%,transparent 53%),
+linear-gradient(-25deg,transparent 47%,#c6d1da 48%,#c6d1da 52%,transparent 53%),
+linear-gradient(90deg,transparent 48%,#c6d1da 49%,#c6d1da 51%,transparent 52%),
+linear-gradient(0deg,transparent 48%,#c6d1da 49%,#c6d1da 51%,transparent 52%),
+#eaf1e5}
+.map-road{position:absolute;background:#fff;border:3px solid #bfc8d0;border-radius:999px;box-shadow:0 2px 5px #0002}
+.map-road.r1{width:88%;height:22px;left:6%;top:47%;transform:rotate(-8deg)}
+.map-road.r2{width:76%;height:18px;left:12%;top:60%;transform:rotate(18deg)}
+.map-road.r3{width:20px;height:78%;left:50%;top:10%;transform:rotate(9deg)}
+.map-road.r4{width:65%;height:16px;left:18%;top:25%;transform:rotate(-32deg)}
+.map-marker{position:absolute;transform:translate(-50%,-50%);cursor:pointer;text-align:center}
+.pin{width:36px;height:36px;border-radius:50% 50% 50% 0;background:#163a5a;color:#fff;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);box-shadow:0 3px 7px #0003}
+.pin span{transform:rotate(45deg);font-size:18px}
+.marker-label{margin-top:6px;background:#fff;padding:4px 7px;border-radius:8px;white-space:nowrap;font-weight:800;font-size:12px;box-shadow:0 2px 8px #0002}
+.city-bubble{position:absolute;min-width:160px;max-width:240px;background:#fff;border-radius:12px;padding:12px;box-shadow:0 8px 24px #0003;display:none;z-index:4}
+.map-controls{position:absolute;right:12px;top:12px;z-index:5;display:flex;flex-direction:column;gap:6px}
+.map-legend{position:absolute;left:12px;bottom:12px;background:#fff;border-radius:12px;padding:10px;z-index:5;font-size:12px;box-shadow:0 4px 12px #0002}
+.result-item{padding:11px;border:1px solid #dce3ea;border-radius:10px;margin:7px 0;background:#fff;cursor:pointer}
+.route-box{background:#f7fafc;border:1px solid #dce3ea;padding:13px;border-radius:12px;margin-top:10px}
+@media(max-width:850px){.maps-shell{grid-template-columns:1fr}.map-panel{min-height:500px}}
+
+
+.money-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.money-box{background:#f7f9fb;border:1px solid #dfe5eb;border-radius:13px;padding:13px;text-align:center}
+.money-box strong{display:block;font-size:24px}
+.ledger-list{display:flex;flex-direction:column;gap:8px}
+.ledger-row{display:flex;justify-content:space-between;gap:12px;padding:11px;border:1px solid #dfe5eb;border-radius:11px;background:#fafcfe}
+.ledger-plus{color:#177245;font-weight:900}.ledger-minus{color:#b42318;font-weight:900}
+.shop-balance{font-size:24px;font-weight:900}
+.trade-balance{font-size:22px;font-weight:900;margin-bottom:10px}
+@media(max-width:700px){.money-grid{grid-template-columns:1fr}}
+
+
+.trade-targets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.trade-target{background:#f7f9fb;color:#172033;border:2px solid #dfe5eb}
+.trade-target.selected{background:#eaf2f9;border-color:#163a5a}
+.selected-target{padding:10px 12px;border-radius:11px;background:#edf5fb;font-weight:900;margin:8px 0}
+.president-special{background:linear-gradient(135deg,#fff8d9,#fffdf2);border:2px solid #d3b94b}
+.president-special .action-grid{grid-template-columns:repeat(3,1fr)}
+@media(max-width:700px){.trade-targets{grid-template-columns:1fr}.president-special .action-grid{grid-template-columns:1fr}}
+
+</style>
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101318">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="assets/app-icon-192.png">
+
+</head>
+
+<div id="appSplash" style="position:fixed;inset:0;z-index:99999;background:#080a0d;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#fff;transition:opacity .35s ease">
+  <img src="assets/yonetim-logo.png" alt="Döllük Yönetim" style="width:min(72vw,340px);height:auto;object-fit:contain">
+  <div style="font-size:14px;opacity:.8">Döllük Yönetim Sistemi • Uygulama v22</div>
+</div>
+
+<body>
+
+
+<div id="pwaInstallBar" style="display:none;background:#17202b;color:#fff;padding:10px 14px;text-align:center">
+  <span>📱 Döllük uygulamasını cihazına yükleyebilirsin.</span>
+  <button id="pwaInstallBtn" style="margin-left:8px;background:#c49b35;color:#111;border:0;border-radius:9px;padding:7px 10px;font-weight:900">Yükle</button>
+</div>
+<div id="dollukSponsors" style="background:#0e1117;color:#fff;border-bottom:1px solid #252a33;padding:8px 14px;text-align:center;font-size:12px">
+  <span style="opacity:.75">SPONSOR ALANI</span>
+  <span style="margin-left:10px;font-weight:900">adidas</span>
+  <span style="margin-left:12px;font-weight:900">Supabase</span>
+  <span style="margin-left:12px;font-weight:900">Microsoft</span>
+  <span style="margin-left:12px;font-weight:900">ChatGPT</span>
+</div>
+
+
+<header><img src="assets/yonetim-logo.png" alt="Döllük Yönetim Sistemi" style="height:58px;width:58px;object-fit:cover;border-radius:14px;margin-right:10px">
+<h1>🏛️ DÖLLÜK CUMHURBAŞKANLIĞI YÖNETİM</h1>
+<p>Ortak sistem • Mesajlaşma • Gazete • Futbol • Mini Oyunlar • Şehirler • Sesli Anons</p>
+</header>
+
+<main>
+
+<section id="login" class="card">
+<h2>Görevine Giriş Yap</h2>
+<p class="small">Herkes kendi görevini seçerek sisteme girer.</p>
+<div class="role-grid">
+  <div class="role">
+    <div class="icon">🇹🇷</div><div class="name">Duru Çaycı</div><div class="desc">Cumhurbaşkanı</div>
+    <button class="full login-btn" data-name="Duru Çaycı" data-role="Cumhurbaşkanı">Giriş Yap</button>
+  </div>
+  <div class="role">
+    <div class="icon">⚽</div><div class="name">Spor Bakanı</div><div class="desc">Spor Bakanı</div>
+    <button class="full login-btn" data-name="Spor Bakanı" data-role="Spor Bakanı">Giriş Yap</button>
+  </div>
+  <div class="role">
+    <div class="icon">🏛️</div><div class="name">Aras Altınbafra</div><div class="desc">Cumhurbaşkanı Yardımcısı</div>
+    <button class="full login-btn" data-name="Aras Altınbafra" data-role="Cumhurbaşkanı Yardımcısı">Giriş Yap</button>
+  </div>
+  <div class="role">
+    <div class="icon">📜</div><div class="name">Aybüke Çaycı</div><div class="desc">Başbakan</div>
+    <button class="full login-btn" data-name="Aybüke Çaycı" data-role="Başbakan">Giriş Yap</button>
+  </div>
+</div>
+</section>
+
+<section id="app" class="hidden">
+
+<div id="presidentBanner" class="card president-banner hidden">
+<h2 style="margin:0 0 6px">🇹🇷 Cumhurbaşkanlığı Yetki Merkezi</h2>
+<div>Duru Çaycı: Devlet yönetimindeki en geniş yetki alanı.</div>
+</div>
+
+<div class="card">
+<h2 id="welcome"></h2>
+<div class="nav">
+  <button data-page="home">Ana Sayfa</button>
+  <button data-page="chat">💬 Mesajlaşma</button>
+  <button data-page="news">📰 Gazete</button>
+  <button data-page="football">⚽ Futbol</button>
+  <button data-page="games">🎮 Mini Oyunlar</button>
+  <button data-page="shop">🪙 Mağaza</button>
+  <button data-page="trade">🤝 Ticaret</button>
+  <button data-page="house">🏠 Evim</button>
+  <button data-page="stocks">📈 Borsa</button>
+  <button data-page="traffic">🚗 Trafik</button>
+  <button data-page="salary">💰 Maaş & Kredi</button>
+  <button data-page="cities">🏙️ Döllük Şehirleri</button>
+  <button data-page="announcements">📢 Sesli Anons</button>
+  <button data-page="maps">🗺️ Döllük Maps</button>
+  <button data-page="notifications" class="bell-btn">🔔 Bildirimler <span id="notificationCount" class="bell-count">0</span></button>
+  <button id="logoutBtn" class="danger">Çıkış</button>
+</div>
+</div>
+
+<section id="home" class="page">
+  <div class="card">
+    <h2>Yönetim Merkezi</h2>
+    <div id="globalStatus" class="status warn">Supabase bağlantısı hazırlanıyor...</div>
+    <div class="info-grid" style="margin-top:12px">
+      <div class="info"><strong>4</strong>Görev</div>
+      <div class="info"><strong id="msgCount">0</strong>Mesaj</div>
+      <div class="info"><strong id="newsCount">0</strong>Gazete</div>
+      <div class="info"><strong id="actionCount">0</strong>Ortak İşlem</div>
+    </div>
+  </div>
+
+  <div class="card wallet">
+    <h2>🪙 Döllük Cüzdanım</h2>
+    <div class="wallet-money"><span id="walletBalance">0</span> DL</div>
+    <div class="money-grid">
+      <div class="money-box"><strong id="homeSalaryAccrued">0</strong>Biriken Maaş</div>
+      <div class="money-box"><strong id="homeLoanDebt">0</strong>Kredi Borcu</div>
+      <div class="money-box"><strong id="homeNetWorth">0</strong>Net DL</div>
+    </div>
+    <div>Aktif Ünvan: <span id="activeTitle" class="profile-title">Ünvan yok</span></div>
+    <div class="action-grid" style="margin-top:10px">
+      <button id="dailyRewardBtn" class="gold">🎁 Günlük 250 DL Al</button>
+      <button data-page="salary" class="secondary">💰 Banka</button>
+    </div>
+    <div id="walletStatus" class="small"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔐 Yetkilerin</h2>
+    <div id="permissions"></div>
+  </div>
+
+  <div id="actionArea"></div>
+
+  <div id="presidentSpecial" class="card president-special hidden">
+    <h2>👑 Cumhurbaşkanlığı Özel Yetkileri</h2>
+    <p class="small">Bu bölüm yalnızca <b>Duru Çaycı — Cumhurbaşkanı</b> hesabında açılır.</p>
+
+    <div class="action-grid">
+      <div>
+        <h3>🎁 Özel Bütçe</h3>
+        <select id="presidentMoneyTarget"></select>
+        <input id="presidentMoneyAmount" type="number" min="1" placeholder="Verilecek DL">
+        <button id="presidentGiveMoney" class="success full">DL Ver</button>
+      </div>
+
+      <div>
+        <h3>🏦 Kredi Affı</h3>
+        <select id="presidentLoanTarget"></select>
+        <button id="presidentForgiveLoan" class="gold full">Borcu Affet</button>
+      </div>
+
+      <div>
+        <h3>👑 Özel Ünvan Ata</h3>
+        <select id="presidentTitleTarget"></select>
+        <select id="presidentTitle"></select>
+        <button id="presidentGiveTitle" class="gold full">Ünvanı Ata</button>
+      </div>
+    </div>
+
+    <div id="presidentSpecialStatus" class="small" style="margin-top:10px"></div>
+  </div>
+
+
+  <div class="card">
+    <h2>📋 Ortak Yönetim İşlemleri</h2>
+    <div id="logs"><div class="notice">Henüz ortak işlem yok.</div></div>
+  </div>
+
+  <div class="card">
+    <h3>☁️ Ortak Sistem Bağlantısı</h3>
+    <p class="small">Supabase URL ve Publishable Key yalnızca bu cihazda saklanır. Diğer cihazda da aynı iki bilgiyi bir kez girmen gerekir.</p>
+    <input id="supabaseUrl" placeholder="https://xxxx.supabase.co">
+    <input id="supabaseKey" placeholder="sb_publishable_...">
+    <div class="action-grid">
+      <button id="saveSupabase">☁️ Bağlan</button>
+      <button id="clearSupabase" class="secondary">Bağlantıyı Temizle</button>
+    </div>
+    <div id="setupHint" class="small"></div>
+  </div>
+</section>
+
+<section id="chat" class="page hidden">
+  <div class="card">
+    <h2>💬 Döllük Ortak Mesajlaşma</h2>
+    <div id="chatStatus" class="status warn">Bağlantı bekleniyor.</div>
+    <div id="chatMessages" class="chatbox"></div>
+    <textarea id="messageText" maxlength="1000" placeholder="Mesajını yaz..."></textarea>
+    <button id="sendMessage" class="success full">📨 Mesaj Gönder</button>
+    <p class="small">Mesajlar bütün bağlı cihazlarda ortak görünür. Enter = gönder.</p>
+  </div>
+</section>
+
+<section id="news" class="page hidden">
+  <div class="card">
+    <h2>📰 DÖLLÜK GAZETESİ</h2>
+    <div id="newsStatus" class="status warn">Ortak gazete yükleniyor...</div>
+  </div>
+
+  <div id="publisher" class="card pdfbox hidden">
+    <h3>✍️ Aras Altınbafra — Gazete Yayın Merkezi</h3>
+    <input id="pdfFile" type="file" accept="application/pdf">
+    <input id="pdfTitle" placeholder="Gazete adı">
+    <button id="publishPdf" class="success full">📄 PDF Olarak Yayınla</button>
+  </div>
+
+  <div id="newsList"></div>
+</section>
+
+
+<section id="shop" class="page hidden">
+  <div class="card">
+    <h2>🪙 DÖLLÜK MAĞAZASI</h2>
+    <p class="small">Döllük Lirası (DL) ile ünvanlar ve özel eşyalar al.</p>
+    <div class="shop-balance">💰 Bakiyem: <span id="shopBalance">0</span> DL</div>
+    <div id="shopStatus" class="status ok">Mağaza hazır.</div>
+  </div>
+  <div class="card"><h3>👑 Ünvanlar</h3><div id="titleShop" class="shop-grid"></div></div>
+  <div class="card"><h3>🎁 Özel Eşyalar</h3><div id="itemShop" class="shop-grid"></div></div>
+  <div class="card"><h3>🎒 Envanterim</h3><div id="inventoryList" class="shop-grid"></div></div>
+</section>
+
+
+
+<section id="trade" class="page hidden">
+  <div class="card">
+    <h2>🤝 DÖLLÜK TİCARET</h2>
+    <p class="small">DL veya eşya gönder. Göndermeden önce işlem onaylanır ve işlem geçmişine kaydedilir.</p>
+    <div class="trade-balance">💰 Bakiyem: <span id="tradeBalance">0</span> DL</div>
+    <div class="trade-grid">
+      <div class="trade-card">
+        <h3>🪙 DL Gönder</h3>
+        <div class="small">Önce göndereceğin kişiye dokun:</div>
+        <div id="moneyTargetButtons" class="trade-targets"></div>
+        <div id="moneySelectedTarget" class="selected-target">Kişi seçilmedi</div>
+        <select id="moneyTarget"></select>
+        <input id="moneyAmount" type="number" min="1" placeholder="Miktar (DL)">
+        <button id="sendMoneyTrade" class="success full">🤝 DL Gönder</button>
+      </div>
+
+      <div class="trade-card">
+        <h3>🎁 Eşya Gönder</h3>
+        <div class="small">Önce göndereceğin kişiye dokun:</div>
+        <div id="itemTargetButtons" class="trade-targets"></div>
+        <div id="itemSelectedTarget" class="selected-target">Kişi seçilmedi</div>
+        <select id="itemTarget"></select>
+        <select id="itemToSend"></select>
+        <input id="itemQty" type="number" min="1" value="1" placeholder="Adet">
+        <button id="sendItemTrade" class="gold full">🎁 Eşyayı Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📜 Son Ticaret İşlemleri</h3>
+    <div id="tradeHistory"><div class="notice">Henüz ticaret işlemi yok.</div></div>
+  </div>
+</section>
+
+<section id="house" class="page hidden">
+  <div class="card">
+    <h2>🏠 DÖLLÜK EVİM</h2>
+    <p class="small">Kendi evini seç, yükselt ve arkadaşlarına göster.</p>
+    <div id="houseStatus" class="status warn">Ev yükleniyor...</div>
+    <div id="myHouse" class="house-card"></div>
+  </div>
+
+  <div class="card">
+    <h3>🏡 Ev Seç</h3>
+    <div id="houseGrid" class="house-grid"></div>
+  </div>
+
+  <div class="card">
+    <h3>👥 Döllük Evleri</h3>
+    <div id="allHouses" class="house-grid"></div>
+  </div>
+</section>
+
+
+<section id="traffic" class="page hidden">
+  <div class="card">
+    <h2>🚗 DÖLLÜK TRAFİK MERKEZİ</h2>
+    <p class="small">Ortak trafik sistemi. Herkes görebilir; trafik yönetimi yalnızca Aras Altınbafra'ya aittir.</p>
+    <div id="trafficStatus" class="status warn">Trafik yükleniyor...</div>
+    <div class="traffic-grid">
+      <div class="traffic-card"><div>🚙 Aktif Araç</div><div id="activeCars" class="traffic-stat">0</div></div>
+      <div class="traffic-card"><div>🧾 Toplam Ceza</div><div id="fineCount" class="traffic-stat">0</div></div>
+      <div class="traffic-card"><div>🚦 Yol Durumu</div><div id="trafficLevel" class="traffic-stat">Sakin</div></div>
+      <div class="traffic-card"><div>🛣️ Yol Açıklığı</div><div id="roadStatus" class="traffic-stat">Açık</div></div>
+    </div>
+  </div>
+
+  <div id="trafficManager" class="card hidden" style="background:#f7fafc">
+    <h3>👑 Aras Altınbafra — Döllük Trafik Başkanlığı</h3>
+    <p class="small">Trafik durumunu ve kayıtları yalnızca Aras yönetir.</p>
+    <div class="traffic-grid">
+      <div class="traffic-card">
+        <h3>🚦 Yol Durumu Değiştir</h3>
+        <select id="trafficLevelInput">
+          <option>Sakin</option><option>Normal</option><option>Yoğun</option><option>Çok Yoğun</option>
+        </select>
+        <select id="roadStatusInput">
+          <option>Açık</option><option>Kısmen Açık</option><option>Kapalı</option>
+        </select>
+        <button id="saveTrafficStatus" class="success full">💾 Trafik Durumunu Kaydet</button>
+      </div>
+      <div class="traffic-card">
+        <h3>🧾 Trafik Kaydı Ekle</h3>
+        <select id="trafficPerson"></select>
+        <select id="trafficType"><option>Park Cezası</option><option>Hız İhlali</option><option>Kırmızı Işık</option><option>Cam Balkon Taşıma İzni</option><option>Trafik Yardımı</option></select>
+        <input id="trafficAmount" type="number" min="0" placeholder="DL miktarı (ceza ise)">
+        <button id="addTrafficRecord" class="gold full">➕ Kayıt Ekle</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📜 Ortak Trafik Kayıtları</h3>
+    <div id="trafficHistory"><div class="notice">Henüz trafik kaydı yok.</div></div>
+  </div>
+</section>
+
+<section id="stocks" class="page hidden">
+  <div class="card">
+    <h2>📈 DÖLLÜK BORSASI</h2>
+    <p class="small">Tamamen kurgusal eğlence amaçlı piyasa. Fiyatlar ortak sistemde yükselip düşer.</p>
+    <div id="stockStatus" class="status warn">Borsa yükleniyor...</div>
+    <div id="marketTicker" class="market-ticker"></div>
+
+    <div class="card" style="background:#f7fafc">
+      <h3>💼 Portföyüm</h3>
+      <div id="portfolio"></div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="stock-table">
+        <thead>
+          <tr><th>Coin</th><th>Şirket</th><th>Fiyat</th><th>Değişim</th><th>Adet</th><th>İşlem</th></tr>
+        </thead>
+        <tbody id="stockBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="salary" class="page hidden">
+  <div class="card wallet">
+    <h2>💰 Döllük Maaş Sistemi</h2>
+    <p class="small">Maaş her 7 günde bir birikir. Biriken maaşı istediğin zaman cüzdanına çekebilirsin.</p>
+    <div class="wallet-money"><span id="salaryAccrued">0</span> DL</div>
+    <div class="small">Çekilebilir maaş</div>
+    <div class="two" style="margin-top:10px">
+      <input id="withdrawAmount" type="number" min="1" placeholder="Çekilecek DL">
+      <button id="withdrawSalary" class="success">💸 Maaşı Çek</button>
+    </div>
+    <button id="withdrawAllSalary" class="gold full">💰 Tamamını Çek</button>
+    <div id="salaryStatus" class="small"></div>
+  </div>
+
+  <div class="card">
+    <h2>📊 Banka Özeti</h2>
+    <div class="money-grid">
+      <div class="money-box"><strong id="salaryWalletBalance">0</strong>Cüzdan</div>
+      <div class="money-box"><strong id="salaryWeekly">0</strong>Haftalık Maaş</div>
+      <div class="money-box"><strong id="salaryDebt">0</strong>Kredi Borcu</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>👥 Herkesin Maaşı</h2>
+    <p class="small">Tüm görevlerin haftalık maaşı ve birikmiş tutarı burada görünür.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Görev</th><th>Kişi</th><th>Haftalık Maaş</th><th>Birikmiş Maaş</th><th>Kredi Borcu</th>
+          </tr>
+        </thead>
+        <tbody id="salaryTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📜 Para Hareketlerim</h2>
+    <div id="moneyLedger" class="ledger-list"><div class="notice">Hareketler yükleniyor...</div></div>
+  </div>
+
+  <div class="card">
+    <h2>🏦 Döllük Bankası — Kredi</h2>
+    <p class="small">Kredi üst limiti haftalık maaşın 2 katıdır. Aynı anda bir kredin olabilir. Geri ödemeyi istediğin zaman yapabilirsin.</p>
+    <div class="two">
+      <input id="loanAmount" type="number" min="1" placeholder="Kredi miktarı">
+      <button id="takeLoan" class="success">💳 Kredi Çek</button>
+    </div>
+    <div class="two">
+      <input id="repayAmount" type="number" min="1" placeholder="Ödeme miktarı">
+      <button id="repayLoan" class="secondary">↩️ Kredi Öde</button>
+    </div>
+    <button id="repayAllLoan" class="danger full">🏦 Kredi Borcunun Tamamını Öde</button>
+    <div id="loanStatus" class="small"></div>
+  </div>
+</section>
+
+
+
+<section id="cities" class="page hidden">
+  <div class="card">
+    <h2>🏙️ DÖLLÜK ŞEHİRLERİ</h2>
+    <p class="small">Döllük'ün ortak şehir ekranı. Nüfus, bütçe, mutluluk ve durum bütün cihazlarda aynı görünür.</p>
+    <div id="cityStatus" class="status warn">Şehirler yükleniyor...</div>
+  </div>
+  <div id="cityGrid" class="city-grid"></div>
+
+  <div class="card">
+    <h3>📍 Özel Yerler</h3>
+    <div class="city-grid">
+      <div class="city-card"><div style="font-size:34px">🏛️</div><b>Döllük Başkent</b><div class="small">Devlet yönetim merkezi</div></div>
+      <div class="city-card"><div style="font-size:34px">🏠</div><b>Babaanne Salonu</b><div class="small">Döllük'ün en meşhur buluşma noktası</div></div>
+    </div>
+  </div>
+
+  <div id="cityEditor" class="card hidden">
+    <h3>🇹🇷 Cumhurbaşkanlığı — Şehir Yönetimi</h3>
+    <p class="small">Bu bölüm yalnızca Cumhurbaşkanı Duru Çaycı'ya açıktır.</p>
+    <div id="cityEditList"></div>
+    <button id="saveCities" class="success full">💾 Şehirleri Kaydet</button>
+  </div>
+</section>
+
+
+<section id="announcements" class="page hidden">
+  <div class="card">
+    <h2>📢 DÖLLÜK SESLİ ANONS MERKEZİ</h2>
+    <p class="small">Ortak anons yaz, bütün yöneticiler görsün. “Seslendir” düğmesi metni cihazın ses sistemiyle okur.</p>
+    <textarea id="announcementText" maxlength="600" placeholder="Örn: Döllükspor maçı bugün saat 20.00'de..."></textarea>
+    <div class="voice-controls">
+      <button id="publishAnnouncement" class="success">📢 Anonsu Yayınla</button>
+      <button id="speakAnnouncement" class="gold">🔊 Yazıyı Seslendir</button>
+    </div>
+    <div id="announcementStatus" class="status warn" style="margin-top:10px">Hazır.</div>
+  </div>
+  <div class="card">
+    <h3>📜 Ortak Anonslar</h3>
+    <div id="announcementList"></div>
+  </div>
+</section>
+
+
+<section id="maps" class="page hidden">
+  <div class="card">
+    <h2>🗺️ DÖLLÜK MAPS</h2>
+    <p class="small">Döllük'ün kendi ortak haritası. Şehirler, önemli yerler, yollar ve trafik durumu tek yerde.</p>
+  </div>
+
+  <div class="maps-shell">
+    <div class="card maps-search">
+      <h3>🔎 Ara</h3>
+      <input id="mapSearch" placeholder="Şehir veya yer ara...">
+      <div id="mapResults"></div>
+
+      <div class="route-box">
+        <h3 style="margin-top:0">🚗 Rota</h3>
+        <select id="routeFrom"></select>
+        <select id="routeTo"></select>
+        <button id="showRoute" class="success full">🧭 Rotayı Göster</button>
+        <div id="routeResult" class="small"></div>
+      </div>
+
+      <div class="route-box">
+        <h3 style="margin-top:0">📌 Döllük Yerleri</h3>
+        <div class="small">🏛️ Döllük Başkent • 🏠 Babaanne Salonu • ⚽ Döllük Stadyumu • 🛒 Döllük AVM • 🏦 Döllük Bankası</div>
+      </div>
+    </div>
+
+    <div class="map-panel" id="mapPanel">
+      <div class="map-canvas">
+        <div class="map-road r1"></div>
+        <div class="map-road r2"></div>
+        <div class="map-road r3"></div>
+        <div class="map-road r4"></div>
+
+        <div class="map-marker" style="left:48%;top:47%" data-name="Döllük Merkez">
+          <div class="pin"><span>🏛️</span></div><div class="marker-label">Döllük Merkez</div>
+        </div>
+        <div class="map-marker" style="left:25%;top:30%" data-name="Aldeıra">
+          <div class="pin"><span>🏙️</span></div><div class="marker-label">Aldeıra</div>
+        </div>
+        <div class="map-marker" style="left:75%;top:30%" data-name="Tokat">
+          <div class="pin"><span>🏙️</span></div><div class="marker-label">Tokat</div>
+        </div>
+        <div class="map-marker" style="left:22%;top:72%" data-name="Yozgat">
+          <div class="pin"><span>🏙️</span></div><div class="marker-label">Yozgat</div>
+        </div>
+        <div class="map-marker" style="left:77%;top:70%" data-name="Sivas">
+          <div class="pin"><span>🏙️</span></div><div class="marker-label">Sivas</div>
+        </div>
+        <div class="map-marker" style="left:50%;top:18%" data-name="Amasya">
+          <div class="pin"><span>🏙️</span></div><div class="marker-label">Amasya</div>
+        </div>
+
+        <div class="map-marker" style="left:53%;top:58%" data-name="Babaanne Salonu">
+          <div class="pin"><span>🏠</span></div><div class="marker-label">Babaanne Salonu</div>
+        </div>
+        <div class="map-marker" style="left:62%;top:42%" data-name="Döllük Stadyumu">
+          <div class="pin"><span>⚽</span></div><div class="marker-label">Döllük Stadyumu</div>
+        </div>
+        <div class="map-marker" style="left:38%;top:58%" data-name="Döllük AVM">
+          <div class="pin"><span>🛒</span></div><div class="marker-label">Döllük AVM</div>
+        </div>
+        <div class="map-marker" style="left:58%;top:32%" data-name="Döllük Bankası">
+          <div class="pin"><span>🏦</span></div><div class="marker-label">Döllük Bankası</div>
+        </div>
+
+        <div id="mapBubble" class="city-bubble"></div>
+        <div class="map-controls">
+          <button id="mapZoomIn">＋</button>
+          <button id="mapZoomOut">−</button>
+          <button id="mapReset">↺</button>
+        </div>
+        <div class="map-legend">
+          🟢 Açık yol &nbsp; 🟡 Yoğun &nbsp; 🔴 Kapalı
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="notifications" class="page hidden">
+  <div class="card">
+    <h2>🔔 Döllük Bildirim Merkezi</h2>
+    <div class="status ok">Ortak bildirim sistemi aktif. Yeni olaylar burada görünür.</div>
+    <div class="action-grid" style="margin-top:10px">
+      <button id="markAllRead" class="secondary">✅ Hepsini Okundu Yap</button>
+      <button id="refreshNotifications">🔄 Yenile</button>
+    </div>
+  </div>
+  
+  <div class="card" style="background:#f7fafc">
+    <h3>📲 Cihaz Bildirimleri</h3>
+    <p class="small">Tarayıcı izin verirse sistem dışındayken bile desteklenen bildirimler gösterilebilir.</p>
+    <button id="enableBrowserNotifications" class="full">🔔 Bildirim İznini Aç</button>
+    <div id="browserNotificationStatus" class="small"></div>
+  </div>
+
+  <div class="card">
+    <div id="notificationList" class="notifications">
+      <div class="notice">Henüz bildirim yok.</div>
+    </div>
+  </div>
+</section>
+
+<section id="football" class="page hidden">
+<div style="background:#080a0d;border-radius:16px;margin-bottom:14px;padding:10px;text-align:center;border:1px solid #262b34">
+  <img src="assets/super-lig-logo.png" alt="Döllük Süper Ligi" style="width:min(100%,720px);max-height:180px;object-fit:contain">
+</div>
+
+  <div class="card">
+    <h2>⚽ DÖLLÜK FUTBOL LİGİ</h2>
+    <div id="footballStatus" class="status warn">Sıralama yükleniyor...</div>
+
+    <div class="card" style="background:#f7fafc">
+      <h3>🏆 Döllük Sıralaması</h3>
+      <p class="small">Puan: galibiyet 3, beraberlik 1.</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AG</th><th>YG</th><th>AV</th><th>P</th></tr></thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+      </div>
+    </div>
+
+    <div id="sportsEditor" class="card hidden" style="background:#fffaf0">
+      <h3>⚽ Spor Bakanlığı — Sıralama Yönetimi</h3>
+      <p class="small">Bu ekran yalnızca Spor Bakanı girişinde görünür.</p>
+      <div id="editTeams"></div>
+      <button id="saveStandings" class="success full">💾 Sıralamayı Kaydet</button>
+    </div>
+  </div>
+</section>
+
+<section id="games" class="page hidden">
+  <div class="card">
+    <h2>🎮 DÖLLÜK MİNİ OYUNLARI</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <h3>🥅 Penaltı</h3>
+        <p>Kalecinin seçimini geçmeye çalış.</p>
+        <div id="penaltyResult" class="scoreboard">⚽ 0</div>
+        <div class="action-grid">
+          <button class="penalty-btn" data-dir="sol">⬅️ Sol</button>
+          <button class="penalty-btn" data-dir="orta">⏺️ Orta</button>
+          <button class="penalty-btn" data-dir="sag">➡️ Sağ</button>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <h3>🔢 Sayı Tahmini</h3>
+        <p>1–20 arasındaki sayıyı bul.</p>
+        <input id="guessInput" type="number" min="1" max="20" placeholder="1-20">
+        <button id="guessBtn" class="full">Tahmin Et</button>
+        <div id="guessResult" class="notice">Yeni oyun hazır.</div>
+      </div>
+
+      <div class="game-card">
+        <h3>⚡ 10 Saniye Tıkla</h3>
+        <p>10 saniyede en çok tıklamayı yap.</p>
+        <div id="clickScore" class="scoreboard">0</div>
+        <button id="clickStart" class="success full">Başlat</button>
+        <button id="clickBtn" class="full" disabled>TIKLA!</button>
+        <div id="clickResult" class="notice">Hazır.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎡 Döllük Şans Çarkı</h3>
+    <div class="wheel-pointer">▼</div>
+    <div id="wheel" class="wheel"><div class="wheel-center">DL</div></div>
+    <button id="spinWheel" class="gold full">🎡 Çarkı Çevir</button>
+    <div id="wheelResult" class="notice">Şansını dene!</div>
+  </div>
+
+  <div class="card">
+    <h3>🏅 Ortak Mini Oyun Rekorları</h3>
+    <div id="scoreList"><div class="notice">Henüz rekor yok.</div></div>
+  </div>
+</section>
+
+</section>
+</main>
+
+<script>
+'use strict';
+
+const $ = id => document.getElementById(id);
+
+let current = null;
+let messages = [];
+let logs = [];
+let standings = [];
+let news = [];
+let sb = null;
+let wallet = {player:'',balance:0,active_title:''};
+let inventory = [];
+let wheelSpinning = false;
+let pollTimer = null;
+let actionTimer = null;
+let scoreTimer = null;
+let salaryAccounts = [];
+let salaryBusy = false;
+let cityData = [];
+let announcements = [];
+let notifications = [];
+let lastNotificationRefresh = 0;
+let lastSeenMessageIds = new Set();
+let tradeHistory = [];
+let house = null;
+let allHouses = [];
+let stocks = [];
+let holdings = [];
+let stockBusy = false;
+let selectedTradeTarget = '';
+let moneyLedger = [];
+let trafficRecords = [];
+let trafficMeta = {level:'Sakin',road:'Açık'};
+
+const TEAMS = [
+  'Döllükspor','Döllük Başkent FK','Aldeıraspor','Tokat Kartalları',
+  'Amasya Şehzadeleri','Yozgat Bozokspor','Sivas Yiğidolar',
+  'Döllük Belediyespor','Merkez Gençlik','Döllük 1923',
+  'Anadolu Yıldızları','Kara Dağspor','Yeşilova FK','Kızılırmakspor',
+  'Gökhanlarspor','Döllük Akademi','Yeni Döllükspor','Döllük Kralları'
+];
+
+const SHOP_TITLES = [
+  {id:'title_koylu',name:'Döllük Köylüsü',price:250,emoji:'🧑‍🌾'},
+  {id:'title_cayci',name:'Çaycı',price:500,emoji:'☕'},
+  {id:'title_havali',name:'Havalı Döllüklü',price:1000,emoji:'😎'},
+  {id:'title_kosucu',name:'Döllük Koşucusu',price:2000,emoji:'🏃'},
+  {id:'title_futbolcu',name:'Döllük Futbolcusu',price:3000,emoji:'⚽'},
+  {id:'title_sampiyon',name:'Döllük Şampiyonu',price:5000,emoji:'🏆'},
+  {id:'title_lordu',name:'Döllük Lordu',price:10000,emoji:'👑'},
+  {id:'title_zengin',name:'Döllük Zengini',price:25000,emoji:'💎'},
+  {id:'title_efsane',name:'Döllük Efsanesi',price:50000,emoji:'🌟'},
+  {id:'title_kral',name:'Döllük Kralı',price:100000,emoji:'👑🔥'}
+];
+
+const SHOP_ITEMS = [
+  {id:'frame_gold',name:'Altın Profil Çerçevesi',price:1500,emoji:'🖼️'},
+  {id:'badge_special',name:'Özel Rozet',price:2000,emoji:'🏅'},
+  {id:'name_color',name:'Özel İsim Rengi',price:2500,emoji:'🎨'},
+  {id:'extra_spin',name:'Ekstra Çark Hakkı',price:1200,emoji:'🎡'},
+  {id:'football_kit',name:'Özel Futbol Forması',price:3500,emoji:'👕'},
+  {id:'game_boost',name:'Mini Oyun 2x Puan Kartı',price:5000,emoji:'🎮'}
+];
+
+
+
+const PEOPLE = ['Duru Çaycı','Aras Altınbafra','Aybüke Çaycı','Spor Bakanı'];
+
+const HOUSE_OPTIONS = [
+  {id:'cam_balkon',name:'Cam Balkonlu Ev',emoji:'🏠',cost:0,description:'Klasik Döllük evi • Başlangıç evi'},
+  {id:'bahceli',name:'Bahçeli Ev',emoji:'🌳',cost:2500,description:'Bahçeli ve ferah'},
+  {id:'sehir_dairesi',name:'Şehir Dairesi',emoji:'🏢',cost:5000,description:'Şehrin tam merkezinde'},
+  {id:'villa',name:'Döllük Villası',emoji:'🏡',cost:15000,description:'Büyük ve lüks'},
+  {id:'kosk',name:'Döllük Köşkü',emoji:'🏛️',cost:40000,description:'En prestijli ev'}
+];
+
+const STOCK_DEFAULTS = [
+  {symbol:'KECI',company:'Keçi Coin Holding',price:120},
+  {symbol:'KEDI',company:'Kedi Teknoloji',price:85},
+  {symbol:'CAYX',company:'ÇayX İçecek',price:210},
+  {symbol:'DOLX',company:'DöllükX',price:175},
+  {symbol:'GOAT',company:'Döllük Keçi Enerji',price:60},
+  {symbol:'CAMB',company:'CamBalkon Yapı',price:145},
+  {symbol:'TOKX',company:'TokatJet',price:98},
+  {symbol:'AMSK',company:'Amasya Sarayları',price:132},
+  {symbol:'SIVY',company:'Sivas Yiğido Teknoloji',price:77},
+  {symbol:'KAZZ',company:'Kaz Coin Pazarlama',price:66},
+  {symbol:'ELMA',company:'ElmaTek Döllük',price:190},
+  {symbol:'MIKD',company:'Mikro Döllük Yazılım',price:155},
+  {symbol:'GOGL',company:'GögleNet',price:118},
+  {symbol:'YOZG',company:'Bozok Birleşik',price:105}
+];
+
+const SALARIES = {
+  'Duru Çaycı': {role:'Cumhurbaşkanı', weekly:10000},
+  'Aras Altınbafra': {role:'Cumhurbaşkanı Yardımcısı', weekly:8800},
+  'Aybüke Çaycı': {role:'Başbakan', weekly:9000},
+  'Spor Bakanı': {role:'Spor Bakanı', weekly:8500}
+};
+const SALARY_PEOPLE = Object.keys(SALARIES);
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+
+const CITY_DEFAULTS = [
+  {name:'Döllük Merkez',population:42000,budget:120000,happiness:88,status:'Sakin'},
+  {name:'Aldeıra',population:18500,budget:68000,happiness:82,status:'Canlı'},
+  {name:'Tokat',population:31000,budget:91000,happiness:79,status:'Yoğun'},
+  {name:'Yozgat',population:27000,budget:84000,happiness:76,status:'Sakin'},
+  {name:'Sivas',population:39000,budget:110000,happiness:81,status:'Güçlü'},
+  {name:'Amasya',population:24000,budget:73000,happiness:86,status:'Turistik'}
+];
+
+const ROLE_PERMISSIONS = {
+  'Cumhurbaşkanı':[
+    'Devlet gündemini belirleme','Devlet toplantısı çağrısı',
+    'Cumhurbaşkanlığı kararı / kararname oluşturma','Bakan görevlendirme',
+    'Resmî duyuru oluşturma','Tüm ortak yönetim işlemlerini görüntüleme',
+    'Özel bütçe verme','Kredi borcu affetme','Özel ünvan atama'
+  ],
+  'Cumhurbaşkanı Yardımcısı':[
+    'Kurumlar arası koordinasyon','Yönetim raporu',
+    'Cumhurbaşkanına rapor sunma','Döllük Gazetesi PDF yayınlama'
+  ],
+  'Başbakan':[
+    'Hükümet toplantısı','Görev dağılımı','Hükümet programı','Bakanlık koordinasyonu'
+  ],
+  'Spor Bakanı':[
+    'Spor etkinlikleri','Kulüp yönetimi','Spor Bakanlığı raporu',
+    'Futbol sıralamasını değiştirme'
+  ]
+};
+
+const ROLE_ACTIONS = {
+  'Cumhurbaşkanı':[
+    ['📜 Kararname Oluştur','Cumhurbaşkanı yeni bir kararname oluşturdu.'],
+    ['📅 Devlet Toplantısı Çağır','Cumhurbaşkanı devlet toplantısı çağrısı yaptı.'],
+    ['👤 Bakan Görevlendir','Cumhurbaşkanı bakan görevlendirme işlemi başlattı.'],
+    ['📢 Resmî Duyuru Oluştur','Cumhurbaşkanlığı resmî duyurusu hazırlandı.'],
+    ['🗓️ Devlet Gündemini Güncelle','Devlet gündemi güncellendi.'],
+    ['🏛️ Tüm Ortak İşlemleri Görüntüle','Cumhurbaşkanı ortak yönetim işlemlerini görüntüledi.']
+  ],
+  'Cumhurbaşkanı Yardımcısı':[
+    ['🤝 Koordinasyon Başlat','Kurumlar arası koordinasyon başlatıldı.'],
+    ['📊 Yönetim Raporu Oluştur','Yönetim raporu oluşturuldu.'],
+    ['📨 Cumhurbaşkanına Rapor Sun','Cumhurbaşkanına rapor sunuldu.'],
+    ['📰 Gazete Merkezine Git','Gazete merkezine geçildi.']
+  ],
+  'Başbakan':[
+    ['🏛️ Hükümet Toplantısı Planla','Hükümet toplantısı planlandı.'],
+    ['📋 Görev Dağılımı Yap','Hükümet görev dağılımı hazırlandı.'],
+    ['📑 Hükümet Programını Güncelle','Hükümet programı güncellendi.'],
+    ['🔄 Bakanlık Koordinasyonu','Bakanlık koordinasyonu başlatıldı.']
+  ],
+  'Spor Bakanı':[
+    ['🏟️ Spor Etkinliği Planla','Spor etkinliği planlandı.'],
+    ['⚽ Kulüp Yönetimi','Spor kulüpleri yönetim ekranı açıldı.'],
+    ['📊 Spor Bakanlığı Raporu','Spor Bakanlığı raporu oluşturuldu.'],
+    ['🏆 Futbol Sıralamasını Aç','Futbol sıralaması yönetim ekranı açıldı.']
+  ]
+};
+
+function esc(v){
+  return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function normalizeUrl(v){
+  let x=String(v||'').trim();
+  x=x.replace(/^NEXT_PUBLIC_SUPABASE_URL\s*=\s*/i,'').trim();
+  x=x.replace(/^SUPABASE_URL\s*=\s*/i,'').trim();
+  x=x.replace(/^['"`]+|['"`]+$/g,'').trim();
+  return x.replace(/\/$/,'');
+}
+
+function normalizeKey(v){
+  let x=String(v||'').trim();
+  x=x.replace(/^NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY\s*=\s*/i,'').trim();
+  x=x.replace(/^SUPABASE_PUBLISHABLE_KEY\s*=\s*/i,'').trim();
+  x=x.replace(/^SUPABASE_ANON_KEY\s*=\s*/i,'').trim();
+  x=x.replace(/^['"`]+|['"`]+$/g,'').trim();
+  return x;
+}
+
+function getStoredConfig(){
+  const url=localStorage.getItem('dolluk_sb_url')||'';
+  const key=localStorage.getItem('dolluk_sb_key')||'';
+  return (url&&key)?{url,key}:null;
+}
+
+function setStatus(id,text,type='warn'){
+  const el=$(id);
+  if(!el)return;
+  el.className='status '+type;
+  el.textContent=text;
+}
+
+async function api(path,options={}){
+  if(!sb)throw new Error('Supabase bağlı değil.');
+  const headers=Object.assign({
+    'apikey':sb.key,
+    'Authorization':'Bearer '+sb.key,
+    'Content-Type':'application/json'
+  },options.headers||{});
+  const r=await fetch(sb.url.replace(/\/$/,'')+'/rest/v1/'+path,Object.assign({},options,{headers}));
+  if(!r.ok){
+    const t=await r.text();
+    throw new Error(t||('HTTP '+r.status));
+  }
+  const ct=r.headers.get('content-type')||'';
+  return ct.includes('application/json')?r.json():null;
+}
+
+
+async function rpc(fn, body={}){
+  if(!sb)throw new Error('Supabase bağlı değil.');
+  const r=await fetch(sb.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{
+    method:'POST',
+    headers:{
+      'apikey':sb.key,
+      'Authorization':'Bearer '+sb.key,
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify(body)
+  });
+  if(!r.ok)throw new Error(await r.text()||('RPC '+r.status));
+  const ct=r.headers.get('content-type')||'';
+  return ct.includes('application/json')?r.json():null;
+}
+
+async function storageUpload(file){
+  const safe=Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+  const url=sb.url.replace(/\/$/,'')+'/storage/v1/object/dolluk-gazete/'+encodeURIComponent(safe);
+  const r=await fetch(url,{
+    method:'POST',
+    headers:{'apikey':sb.key,'Authorization':'Bearer '+sb.key,'Content-Type':'application/pdf','x-upsert':'false'},
+    body:file
+  });
+  if(!r.ok)throw new Error(await r.text()||('HTTP '+r.status));
+  return sb.url.replace(/\/$/,'')+'/storage/v1/object/public/dolluk-gazete/'+encodeURIComponent(safe);
+}
+
+async function connect(){
+  const config=getStoredConfig();
+  if(!config){
+    sb=null;
+    setStatus('globalStatus','☁️ Supabase bağlantısı yok. Ortak veriler için bu cihazı bağla.','warn');
+    setStatus('chatStatus','Supabase bağlantısı yok.','warn');
+    setStatus('newsStatus','Supabase bağlantısı yok.','warn');
+    setStatus('footballStatus','Supabase bağlantısı yok.','warn');
+    return;
+  }
+  sb=config;
+  $('supabaseUrl').value=config.url;
+  $('supabaseKey').value=config.key;
+
+  try{
+    await api('messages?select=id&limit=1');
+    setStatus('globalStatus','☁️ Supabase bağlı — ortak sistem aktif.','ok');
+    setStatus('chatStatus','☁️ Ortak mesajlaşma aktif.','ok');
+    await ensureWallet();
+    await refreshAll();
+    clearInterval(pollTimer);
+    pollTimer=setInterval(refreshAll,3000);
+  }catch(e){
+    sb=null;
+    setStatus('globalStatus','❌ Supabase bağlantısı başarısız: '+String(e.message||e).slice(0,160),'bad');
+    setStatus('chatStatus','❌ Bağlantı başarısız: '+String(e.message||e).slice(0,160),'bad');
+  }
+}
+
+async function refreshAll(){
+  if(!sb)return;
+  await Promise.allSettled([
+    refreshMessages(),
+    refreshNews(),
+    refreshStandings(),
+    refreshLogs(),
+    refreshScores(),
+    refreshWallet(),
+    refreshSalaries(),
+    refreshNotifications(),
+    refreshCities(),
+    refreshAnnouncements(),
+    refreshTradeHistory(),
+    refreshHouse(),
+    refreshStocks(),
+    refreshTraffic(),
+    refreshMoneyLedger()
+  ]);
+}
+
+
+async function addNotification(title, body, type='genel'){
+  if(!sb)return;
+  try{
+    await api('dolluk_notifications',{
+      method:'POST',
+      headers:{'Prefer':'return=minimal'},
+      body:JSON.stringify({
+        title,
+        body,
+        type,
+        actor:current?.name||'Sistem'
+      })
+    });
+    await refreshNotifications();
+  }catch{}
+}
+
+async function refreshNotifications(){
+  if(!sb || !current)return;
+  try{
+    const data = await api('dolluk_notifications?select=id,title,body,type,actor,created_at&order=created_at.desc&limit=100');
+    notifications = data || [];
+    renderNotifications();
+  }catch{}
+}
+
+function renderNotifications(){
+  const unread = notifications.length; // ortak genel bildirim sayısı
+  $('notificationCount').textContent = unread > 99 ? '99+' : String(unread);
+  $('notificationList').innerHTML = notifications.length ? notifications.map(n =>
+    '<div class="notification unread">'+
+      '<div class="notification-title">🔔 '+esc(n.title)+'</div>'+
+      '<div>'+esc(n.body)+'</div>'+
+      '<div class="notification-time">'+esc(n.actor||'Sistem')+' • '+esc(new Date(n.created_at).toLocaleString('tr-TR'))+'</div>'+
+    '</div>'
+  ).join('') : '<div class="notice">Henüz bildirim yok.</div>';
+}
+
+async function markAllNotifications(){
+  if(!sb)return;
+  try{
+    // This table is intentionally common/read-only for the demo; clearing the list is optional.
+    // We simply mark local acknowledgement time.
+    localStorage.setItem('dolluk_notifications_seen', String(Date.now()));
+    await refreshNotifications();
+    alert('Bildirimler okundu olarak işaretlendi.');
+  }catch{}
+}
+
+async function refreshMessages(){
+  if(!sb)return;
+  try{
+    const data=await api('messages?select=id,sender,role,text,created_at&order=created_at.asc&limit=300');
+    const incoming=(data||[]).map(x=>({_id:x.id,sender:x.sender,role:x.role,text:x.text,created_at:x.created_at}));
+    const oldIds=new Set(messages.map(m=>String(m._id)));
+    incoming.forEach(x=>{
+      const id=String(x._id);
+      if(!oldIds.has(id) && current && x.sender!==current.name){
+        const seenKey='dolluk_msg_notice_'+id;
+        if(!sessionStorage.getItem(seenKey)){
+          sessionStorage.setItem(seenKey,'1');
+          showToast('Yeni mesaj',x.sender+': '+x.text);
+        }
+      }
+    });
+    messages=incoming;
+    renderMessages();
+  }catch{}
+}
+
+function renderMessages(){
+  $('chatMessages').innerHTML=messages.length?messages.map(m=>
+    '<div class="message '+(current&&m.sender===current.name?'me':'')+'">'+
+    '<b>'+esc(m.sender)+' <span class="small">('+esc(m.role)+')</span></b>'+
+    '<div>'+esc(m.text).replace(/\n/g,'<br>')+'</div>'+
+    '<div class="meta">'+esc(new Date(m.created_at||Date.now()).toLocaleString('tr-TR'))+'</div>'+
+    '</div>'
+  ).join(''):'<div class="notice">Henüz mesaj yok.</div>';
+  $('chatMessages').scrollTop=$('chatMessages').scrollHeight;
+  $('msgCount').textContent=messages.length;
+}
+
+async function sendMessage(){
+  if(!current)return;
+  const text=$('messageText').value.trim();
+  if(!text)return;
+  if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+  $('messageText').value='';
+  try{
+    await api('messages',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({sender:current.name,role:current.role,text})});
+    await awardGameMoney('Mesajlaşma',5);
+    await addNotification('💬 Yeni mesaj',current.name+' ortak mesajlaşmaya bir mesaj gönderdi.','mesaj');
+    await refreshMessages();
+  }catch(e){
+    alert('Mesaj gönderilemedi: '+String(e.message||e).slice(0,180));
+  }
+}
+
+
+
+
+async function refreshMoneyLedger(){
+  if(!sb||!current)return;
+  try{
+    moneyLedger=await api('dolluk_money_ledger?player=eq.'+encodeURIComponent(current.name)+'&select=id,amount,balance_after,type,reason,counterparty,created_at&order=created_at.desc&limit=40')||[];
+    $('moneyLedger').innerHTML=moneyLedger.length?moneyLedger.map(x=>{
+      const a=Number(x.amount||0), plus=a>=0;
+      const counter=x.counterparty?(' • '+esc(x.counterparty)):'';
+      return '<div class="ledger-row"><div><b>'+esc(x.reason||'Para hareketi')+'</b><div class="meta">'+esc(x.type||'')+counter+' • '+esc(new Date(x.created_at).toLocaleString('tr-TR'))+'</div></div><div><div class="'+(plus?'ledger-plus':'ledger-minus')+'">'+(plus?'+':'')+a.toLocaleString('tr-TR')+' DL</div><div class="meta">Bakiye: '+Number(x.balance_after||0).toLocaleString('tr-TR')+' DL</div></div></div>';
+    }).join(''):'<div class="notice">Henüz para hareketi yok.</div>';
+  }catch{
+    $('moneyLedger').innerHTML='<div class="notice">Para hareketleri yüklenemedi.</div>';
+  }
+}
+
+function renderTradePeople(){
+  if(!current)return;
+  const others=PEOPLE.filter(x=>x!==current.name);
+  const opts=others.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
+  $('moneyTarget').innerHTML=opts;
+  $('itemTarget').innerHTML=opts;
+
+  const buttonsMoney=others.map(x=>'<button type="button" class="trade-target money-person '+(selectedTradeTarget===x?'selected':'')+'" data-target="'+esc(x)+'">'+esc(x)+'</button>').join('');
+  const buttonsItem=others.map(x=>'<button type="button" class="trade-target item-person '+(selectedTradeTarget===x?'selected':'')+'" data-target="'+esc(x)+'">'+esc(x)+'</button>').join('');
+  $('moneyTargetButtons').innerHTML=buttonsMoney || '<div class="notice">Başka kişi yok.</div>';
+  $('itemTargetButtons').innerHTML=buttonsItem || '<div class="notice">Başka kişi yok.</div>';
+
+  const currentTarget=selectedTradeTarget&&others.includes(selectedTradeTarget)?selectedTradeTarget:'';
+  if(currentTarget){
+    $('moneyTarget').value=currentTarget;
+    $('itemTarget').value=currentTarget;
+    $('moneySelectedTarget').textContent='✅ Seçilen kişi: '+currentTarget;
+    $('itemSelectedTarget').textContent='✅ Seçilen kişi: '+currentTarget;
+  }else{
+    $('moneyTarget').selectedIndex=-1;
+    $('itemTarget').selectedIndex=-1;
+    $('moneySelectedTarget').textContent='Kişi seçilmedi';
+    $('itemSelectedTarget').textContent='Kişi seçilmedi';
+  }
+
+  document.querySelectorAll('.money-person,.item-person').forEach(btn=>{
+    btn.onclick=()=>{
+      selectedTradeTarget=btn.dataset.target;
+      renderTradePeople();
+    };
+  });
+
+  $('moneyTarget').onchange=()=>{selectedTradeTarget=$('moneyTarget').value;renderTradePeople();};
+  $('itemTarget').onchange=()=>{selectedTradeTarget=$('itemTarget').value;renderTradePeople();};
+}
+
+async function sendMoneyTrade(){
+  if(!sb||!current)return;
+  const target=selectedTradeTarget||$('moneyTarget').value;
+  const amount=Math.floor(Number($('moneyAmount').value)||0);
+  if(!target||target===current.name){alert('Bir kişi seç.');return;}
+  if(amount<=0){alert('Gönderilecek DL miktarı gir.');return;}
+  if(!confirm(target+' kişisine '+amount.toLocaleString('tr-TR')+' DL gönderilsin mi?'))return;
+  try{
+    await rpc('dolluk_transfer_money',{
+      p_from:current.name,p_to:target,p_amount:amount
+    });
+    $('moneyAmount').value='';
+    await refreshWallet();await refreshTradeHistory();await refreshMoneyLedger();
+    await addNotification('🤝 DL transferi',current.name+' → '+target+' : '+amount.toLocaleString('tr-TR')+' DL','ticaret');
+    alert(amount.toLocaleString('tr-TR')+' DL gönderildi.');
+  }catch(e){
+    alert('Transfer başarısız: '+String(e.message||e).slice(0,200));
+  }
+}
+
+function renderTradeItems(){
+  const list=inventory.filter(x=>Number(x.quantity||0)>0);
+  $('itemToSend').innerHTML=list.length?list.map(x=>{
+    const item=shopItemById(x.item_id);
+    return '<option value="'+esc(x.item_id)+'">'+esc(item?.name||x.item_id)+' • '+x.quantity+' adet</option>';
+  }).join(''):'<option value="">Envanter boş</option>';
+}
+
+async function sendItemTrade(){
+  if(!sb||!current)return;
+  const target=selectedTradeTarget||$('itemTarget').value;
+  const itemId=$('itemToSend').value;
+  const qty=Math.floor(Number($('itemQty').value)||0);
+  if(!target||target===current.name){alert('Bir kişi seç.');return;}
+  if(!itemId||qty<=0){alert('Gönderilecek eşyayı ve adedi seç.');return;}
+  const item=shopItemById(itemId);
+  if(!confirm(target+' kişisine '+qty+' adet '+(item?.name||itemId)+' gönderilsin mi?'))return;
+  try{
+    await rpc('dolluk_transfer_item',{
+      p_from:current.name,p_to:target,p_item_id:itemId,p_quantity:qty
+    });
+    await refreshInventory(); await refreshTradeHistory();
+    await addNotification('🎁 Eşya Ticareti',current.name+' → '+target+' : '+qty+' adet '+(item?.name||itemId),'ticaret');
+    alert('Eşya gönderildi.');
+  }catch(e){
+    alert('Eşya gönderilemedi: '+String(e.message||e).slice(0,200));
+  }
+}
+
+async function refreshTradeHistory(){
+  if(!sb||!current)return;
+  try{
+    const data=await api('dolluk_trades?select=id,sender,receiver,trade_type,item_id,quantity,created_at&order=created_at.desc&limit=30');
+    tradeHistory=data||[];
+    $('tradeHistory').innerHTML=tradeHistory.length?tradeHistory.map(t=>{
+      const item=shopItemById(t.item_id);
+      const text=t.trade_type==='DL'
+        ? (Number(t.quantity||0).toLocaleString('tr-TR')+' DL')
+        : (Number(t.quantity||0)+' adet '+(item?.name||t.item_id));
+      return '<div class="notice">🤝 <b>'+esc(t.sender)+'</b> → <b>'+esc(t.receiver)+'</b><br>'+esc(text)+'<div class="meta">'+esc(new Date(t.created_at).toLocaleString('tr-TR'))+'</div></div>';
+    }).join(''):'<div class="notice">Henüz ticaret işlemi yok.</div>';
+  }catch{}
+}
+
+function salaryRecordFor(name){
+  return salaryAccounts.find(x=>x.player===name) || null;
+}
+
+async function ensureSalaryAccounts(){
+  if(!sb)return;
+  for(const name of SALARY_PEOPLE){
+    const cfg = SALARIES[name];
+    try{
+      await api('salary_accounts',{
+        method:'POST',
+        headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'},
+        body:JSON.stringify({
+          player:name,
+          role:cfg.role,
+          weekly_salary:cfg.weekly,
+          accrued_salary:0,
+          last_accrual_at:new Date().toISOString(),
+          loan_balance:0
+        })
+      });
+    }catch{}
+  }
+}
+
+async function refreshSalaries(){
+  if(!sb || !current)return;
+  try{
+    await ensureSalaryAccounts();
+    await rpc('dolluk_accrue_salaries',{});
+    let data = await api('salary_accounts?select=player,role,weekly_salary,accrued_salary,last_accrual_at,loan_balance&order=weekly_salary.desc&limit=20');
+    salaryAccounts = data || [];
+    renderSalary();
+  }catch{
+    salaryAccounts = [];
+    renderSalary();
+    setStatus('salaryStatus','Maaş hesabı yüklenemedi. Supabase tablo kurulumunu kontrol et.','bad');
+  }
+}
+
+function renderSalary(){
+  const mine = salaryRecordFor(current.name);
+  const mineAccrued = Number(mine?.accrued_salary||0);
+  const weekly=Number(mine?.weekly_salary||SalariesFor(current.name));
+  const debt = Number(mine?.loan_balance||0);
+  $('salaryAccrued').textContent = mineAccrued.toLocaleString('tr-TR');
+  if($('salaryWeekly'))$('salaryWeekly').textContent=weekly.toLocaleString('tr-TR');
+  if($('salaryDebt'))$('salaryDebt').textContent=debt.toLocaleString('tr-TR');
+  if($('salaryWalletBalance'))$('salaryWalletBalance').textContent=Number(wallet.balance||0).toLocaleString('tr-TR');
+
+  $('salaryStatus').textContent =
+    (mine ? 'Haftalık maaşın: '+weekly.toLocaleString('tr-TR')+' DL' : 'Maaş hesabı hazırlanıyor...')+
+    ' • Tamamlanan her 7 günlük dönem otomatik olarak birikir.';
+
+  $('salaryTable').innerHTML = SALARY_PEOPLE.map(name=>{
+    const cfg = SALARIES[name];
+    const row = salaryRecordFor(name);
+    const mineClass = name===current.name?' salary-you':'';
+    return '<tr class="'+mineClass+'">'+
+      '<td>'+esc(cfg.role)+'</td>'+
+      '<td class="salary-me">'+esc(name)+'</td>'+
+      '<td><b>'+cfg.weekly.toLocaleString('tr-TR')+' DL</b></td>'+
+      '<td>'+Number(row?.accrued_salary||0).toLocaleString('tr-TR')+' DL</td>'+
+      '<td>'+Number(row?.loan_balance||0).toLocaleString('tr-TR')+' DL</td>'+
+      '</tr>';
+  }).join('');
+
+  if($('loanStatus')){
+    const limit=weekly*2;
+    $('loanStatus').textContent = debt
+      ? 'Mevcut kredi borcun: '+debt.toLocaleString('tr-TR')+' DL • Yeni kredi için önce borcu kapat.'
+      : 'Kredi üst limiti: '+limit.toLocaleString('tr-TR')+' DL';
+  }
+  if($('homeSalaryAccrued'))$('homeSalaryAccrued').textContent=mineAccrued.toLocaleString('tr-TR');
+  if($('homeLoanDebt'))$('homeLoanDebt').textContent=debt.toLocaleString('tr-TR');
+  if($('homeNetWorth'))$('homeNetWorth').textContent=(Number(wallet.balance||0)-debt).toLocaleString('tr-TR');
+}
+
+function SalariesFor(name){
+  return Number(SALARIES[name]?.weekly||0);
+}
+
+async function withdrawSalary(amount){
+  if(!sb||!current)return;
+  amount=Math.floor(Number(amount)||0);
+  if(amount<=0){alert('Çekilecek miktarı gir.');return;}
+  if(salaryBusy)return;
+  salaryBusy=true;
+  try{
+    const data=await api('salary_accounts?player=eq.'+encodeURIComponent(current.name)+'&select=player,weekly_salary,accrued_salary,last_accrual_at,loan_balance&limit=1');
+    const row=data&&data[0];
+    if(!row){alert('Maaş hesabı bulunamadı.');return;}
+    const accrued=Number(row.accrued_salary||0);
+    if(amount>accrued){alert('Biriken maaştan fazlasını çekemezsin.');return;}
+
+    await api('salary_accounts?player=eq.'+encodeURIComponent(current.name),{
+      method:'PATCH',
+      headers:{'Prefer':'return=minimal'},
+      body:JSON.stringify({accrued_salary:accrued-amount})
+    });
+    await addMoney(amount,'Haftalık maaştan '+amount.toLocaleString('tr-TR')+' DL çekildi');
+    $('withdrawAmount').value='';
+    await refreshSalaries();
+    await refreshWallet();
+    await addNotification('💰 Maaş ödemesi',current.name+' '+amount.toLocaleString('tr-TR')+' DL maaşını çekti.','maas');
+    alert(amount.toLocaleString('tr-TR')+' DL maaş cüzdanına aktarıldı.');
+  }catch(e){
+    alert('Maaş çekilemedi: '+String(e.message||e).slice(0,180));
+  }finally{salaryBusy=false;}
+}
+
+async function withdrawAllSalary(){
+  const row=salaryRecordFor(current.name);
+  const amount=Number(row?.accrued_salary||0);
+  if(amount<=0){alert('Çekilebilecek birikmiş maaş yok.');return;}
+  await withdrawSalary(amount);
+}
+
+async function takeLoan(){
+  if(!sb||!current)return;
+  const amount=Math.floor(Number($('loanAmount').value)||0);
+  if(amount<=0){alert('Kredi miktarı gir.');return;}
+  if(!confirm(amount.toLocaleString('tr-TR')+' DL kredi çekilsin mi?'))return;
+  try{
+    const result=await rpc('dolluk_take_loan',{p_player:current.name,p_amount:amount});
+    $('loanAmount').value='';
+    await refreshSalaries();await refreshWallet();await refreshMoneyLedger();
+    await addNotification('🏦 Yeni kredi',current.name+' '+amount.toLocaleString('tr-TR')+' DL kredi çekti.','kredi');
+    alert(amount.toLocaleString('tr-TR')+' DL kredi hesabına geçti. Borcun: '+Number(result?.loan_balance||0).toLocaleString('tr-TR')+' DL');
+  }catch(e){alert('Kredi çekilemedi: '+String(e.message||e).slice(0,220));}
+}
+
+async function repayLoan(amount){
+  if(!sb||!current)return;
+  amount=Math.floor(Number(amount)||0);
+  if(amount<=0){alert('Ödeme miktarı gir.');return;}
+  if(!confirm(amount.toLocaleString('tr-TR')+' DL kredi borcundan ödensin mi?'))return;
+  try{
+    const result=await rpc('dolluk_repay_loan',{p_player:current.name,p_amount:amount});
+    $('repayAmount').value='';
+    await refreshSalaries();await refreshWallet();await refreshMoneyLedger();
+    await addNotification('🏦 Kredi ödemesi',current.name+' '+amount.toLocaleString('tr-TR')+' DL kredi borcu ödedi.','kredi');
+    alert(amount.toLocaleString('tr-TR')+' DL kredi borcundan ödendi. Kalan borç: '+Number(result?.loan_balance||0).toLocaleString('tr-TR')+' DL');
+  }catch(e){alert('Kredi ödemesi başarısız: '+String(e.message||e).slice(0,220));}
+}
+
+
+async function ensureCities(){
+  if(!sb)return;
+  for(const c of CITY_DEFAULTS){
+    try{
+      await api('dolluk_cities',{
+        method:'POST',
+        headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({
+          city:c.name,population:c.population,budget:c.budget,happiness:c.happiness,status:c.status
+        })
+      });
+    }catch{}
+  }
+}
+
+
+async function ensureHouses(){
+  if(!sb)return;
+  for(const p of PEOPLE){
+    try{
+      await api('dolluk_houses',{
+        method:'POST',
+        headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({player:p,house_id:'cam_balkon',level:1})
+      });
+    }catch{}
+  }
+}
+
+async function refreshHouse(){
+  if(!sb||!current)return;
+  try{
+    await ensureHouses();
+    const data=await api('dolluk_houses?select=player,house_id,level,updated_at&order=player.asc&limit=20');
+    allHouses=data||[];
+    house=allHouses.find(x=>x.player===current.name)||null;
+    renderHouse();
+  }catch{
+    allHouses=[]; house=null; renderHouse();
+    setStatus('houseStatus','Ev sistemi yüklenemedi. Supabase tablo kurulumunu kontrol et.','bad');
+  }
+}
+
+function houseOption(id){return HOUSE_OPTIONS.find(x=>x.id===id)||HOUSE_OPTIONS[0];}
+
+function renderHouse(){
+  const h=house||{house_id:'cam_balkon',level:1};
+  const opt=houseOption(h.house_id);
+  $('houseStatus').textContent='☁️ Ortak ev sistemi aktif. Seviye '+(h.level||1);
+  const next=HOUSE_OPTIONS.find(x=>x.cost > opt.cost) || null;
+  const upgradeCost=Math.max(1000,Math.round((h.level||1)*2500));
+  $('myHouse').innerHTML=
+    '<div style="font-size:52px">'+opt.emoji+'</div>'+
+    '<h2 style="margin:8px 0">'+esc(opt.name)+'</h2>'+
+    '<div class="house-level">Seviye '+(h.level||1)+'</div>'+
+    '<p>'+esc(opt.description)+'</p>'+
+    '<div class="small">Son değişiklik: '+esc(new Date(h.updated_at||Date.now()).toLocaleString('tr-TR'))+'</div>'+
+    '<button id="upgradeHouse" class="gold full">⬆️ Evi Yükselt • '+upgradeCost.toLocaleString('tr-TR')+' DL</button>';
+
+  $('houseGrid').innerHTML=HOUSE_OPTIONS.map(o=>{
+    const active=o.id===h.house_id;
+    return '<div class="house-card">'+
+      '<div style="font-size:42px">'+o.emoji+'</div>'+
+      '<h3>'+esc(o.name)+'</h3>'+
+      '<div class="small">'+esc(o.description)+'</div>'+
+      '<div style="margin-top:8px"><b>'+Number(o.cost).toLocaleString('tr-TR')+' DL</b></div>'+
+      '<button class="full chooseHouse" data-id="'+o.id+'" '+(active?'disabled':'')+'>'+
+      (active?'✅ Bu Ev':'🏠 Bu Evi Seç')+'</button></div>';
+  }).join('');
+
+  const visible=allHouses.map(x=>{
+    const o=houseOption(x.house_id);
+    return '<div class="house-card"><div style="font-size:36px">'+o.emoji+'</div><b>'+esc(x.player)+'</b><div>'+esc(o.name)+' • Seviye '+x.level+'</div></div>';
+  });
+  $('allHouses').innerHTML=visible.join('')||'<div class="notice">Henüz ev yok.</div>';
+
+  const up=$('upgradeHouse');
+  if(up)up.addEventListener('click',upgradeHouse);
+
+  document.querySelectorAll('.chooseHouse').forEach(b=>b.addEventListener('click',()=>chooseHouse(b.dataset.id)));
+}
+
+async function chooseHouse(id){
+  if(!sb||!current)return;
+  const opt=houseOption(id);
+  if(house?.house_id===id)return;
+  const cost=Number(opt.cost||0);
+  if(cost>0 && !await spendMoney(cost))return;
+  try{
+    await api('dolluk_houses?player=eq.'+encodeURIComponent(current.name),{
+      method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({house_id:id,level:1})
+    });
+    await refreshHouse();await refreshWallet();
+    await addNotification('🏠 Yeni ev',current.name+' '+opt.name+' satın aldı.','ev');
+    alert(opt.name+' seçildi.');
+  }catch(e){
+    if(cost>0)await addMoney(cost,'Ev satın alımı geri alındı');
+    alert('Ev değiştirilemedi: '+String(e.message||e).slice(0,180));
+  }
+}
+
+async function upgradeHouse(){
+  if(!sb||!current||!house)return;
+  const currentLevel=Number(house.level||1);
+  const nextCost=Math.max(1000,Math.round(currentLevel*2500));
+  if(!await spendMoney(nextCost))return;
+  try{
+    await api('dolluk_houses?player=eq.'+encodeURIComponent(current.name),{
+      method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({level:currentLevel+1})
+    });
+    await refreshHouse();await refreshWallet();
+    await addNotification('🏠 Ev yükseltildi',current.name+' evini seviye '+(currentLevel+1)+' yaptı.','ev');
+    alert('Evin seviye '+(currentLevel+1)+' oldu!');
+  }catch(e){
+    await addMoney(nextCost,'Ev yükseltme geri alındı');
+    alert('Yükseltme kaydedilemedi: '+String(e.message||e).slice(0,180));
+  }
+}
+
+async function refreshCities(){
+  if(!sb || !current)return;
+  try{
+    await ensureCities();
+    const data=await api('dolluk_cities?select=id,city,population,budget,happiness,status&order=id.asc&limit=50');
+    cityData=(data&&data.length)?data:CITY_DEFAULTS.map((x,i)=>({...x,id:i+1}));
+    renderCities();
+    setStatus('cityStatus','☁️ Ortak Döllük şehirleri aktif.','ok');
+  }catch(e){
+    cityData=CITY_DEFAULTS.map((x,i)=>({...x,id:i+1}));
+    renderCities();
+    setStatus('cityStatus','Şehirler yüklenemedi: '+String(e.message||e).slice(0,160),'bad');
+  }
+}
+
+function renderCities(){
+  const maxPop=Math.max(...cityData.map(c=>Number(c.population||0)),1);
+  $('cityGrid').innerHTML=cityData.map(c=>
+    '<div class="city-card">'+
+      '<div style="font-size:34px">🏙️</div>'+
+      '<h3>'+esc(c.city)+'</h3>'+
+      '<div class="city-pop">'+Number(c.population||0).toLocaleString('tr-TR')+'</div>'+
+      '<div class="small">Nüfus</div>'+
+      '<div class="small" style="margin-top:8px">💰 Bütçe: <b>'+Number(c.budget||0).toLocaleString('tr-TR')+' DL</b></div>'+
+      '<div style="margin-top:8px">😊 Mutluluk: <b>'+Number(c.happiness||0)+'%</b></div>'+
+      '<div class="city-meter"><span style="width:'+Math.min(100,Math.max(0,Number(c.happiness||0)))+'%"></span></div>'+
+      '<div class="small">Durum: <b>'+esc(c.status||'Bilinmiyor')+'</b></div>'+
+    '</div>'
+  ).join('');
+
+  const editorVisible=current&&current.role==='Cumhurbaşkanı';
+  $('cityEditor').classList.toggle('hidden',!editorVisible);
+  if(editorVisible){
+    $('cityEditList').innerHTML=cityData.map((c,i)=>
+      '<div class="notice"><b>'+esc(c.city)+'</b>'+
+      '<div class="edit-grid" style="margin-top:8px">'+
+      '<input data-city-i="'+i+'" data-city-f="population" type="number" min="0" value="'+Number(c.population||0)+'" placeholder="Nüfus">'+
+      '<input data-city-i="'+i+'" data-city-f="budget" type="number" min="0" value="'+Number(c.budget||0)+'" placeholder="Bütçe DL">'+
+      '<input data-city-i="'+i+'" data-city-f="happiness" type="number" min="0" max="100" value="'+Number(c.happiness||0)+'" placeholder="Mutluluk %">'+
+      '</div></div>'
+    ).join('');
+  }
+}
+
+async function saveCities(){
+  if(!current||current.role!=='Cumhurbaşkanı'){alert('Şehir yönetimini yalnızca Cumhurbaşkanı değiştirebilir.');return;}
+  if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+  document.querySelectorAll('[data-city-i]').forEach(inp=>{
+    const i=Number(inp.dataset.cityI),f=inp.dataset.cityF;
+    cityData[i][f]=Math.max(0,Number(inp.value)||0);
+    if(f==='happiness')cityData[i][f]=Math.min(100,cityData[i][f]);
+  });
+  try{
+    for(const c of cityData){
+      await api('dolluk_cities?city=eq.'+encodeURIComponent(c.city),{
+        method:'PATCH',headers:{'Prefer':'return=minimal'},
+        body:JSON.stringify({population:c.population,budget:c.budget,happiness:c.happiness})
+      });
+    }
+    await refreshCities();
+    await addNotification('🏙️ Şehir yönetimi güncellendi',current.name+' Döllük şehirlerinin durumunu güncelledi.','sehir');
+    await writeLog('Cumhurbaşkanı Döllük şehirlerinin durumunu güncelledi.');
+    alert('Şehir bilgileri ortak olarak güncellendi.');
+  }catch(e){alert('Şehirler kaydedilemedi: '+String(e.message||e).slice(0,180));}
+}
+
+async function refreshAnnouncements(){
+  if(!sb || !current)return;
+  try{
+    const data=await api('dolluk_announcements?select=id,title,text,author,role,created_at&order=created_at.desc&limit=50');
+    announcements=data||[];
+    renderAnnouncements();
+  }catch{
+    announcements=[];
+    renderAnnouncements();
+  }
+}
+
+function renderAnnouncements(){
+  $('announcementList').innerHTML=announcements.length?announcements.map(a=>
+    '<div class="announcement '+(current&&a.author===current.name?'me':'')+'">'+
+      '<div class="announcement-title">📢 '+esc(a.title)+'</div>'+
+      '<div style="margin-top:7px">'+esc(a.text).replace(/\n/g,'<br>')+'</div>'+
+      '<div class="meta">'+esc(a.author)+' • '+esc(a.role)+' • '+esc(new Date(a.created_at).toLocaleString('tr-TR'))+'</div>'+
+      '<div class="voice-controls" style="margin-top:8px">'+
+        '<button class="secondary speak-one" data-text="'+esc(a.text).replace(/"/g,'&quot;')+'">🔊 Seslendir</button>'+
+      '</div>'+
+    '</div>'
+  ).join(''):'<div class="notice">Henüz anons yok.</div>';
+
+  document.querySelectorAll('.speak-one').forEach(btn=>{
+    btn.addEventListener('click',()=>speakText(btn.dataset.text));
+  });
+}
+
+function speakText(text){
+  if(!('speechSynthesis' in window)){alert('Bu cihazın tarayıcısında sesli okuma desteklenmiyor.');return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='tr-TR';
+  u.rate=0.95;
+  u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+
+async function publishAnnouncement(){
+  if(!current){return;}
+  if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+  const text=$('announcementText').value.trim();
+  if(!text){alert('Anons metni yaz.');return;}
+  try{
+    await api('dolluk_announcements',{
+      method:'POST',
+      headers:{'Prefer':'return=minimal'},
+      body:JSON.stringify({
+        title:current.role+' Anonsu',
+        text,
+        author:current.name,
+        role:current.role
+      })
+    });
+    $('announcementText').value='';
+    await refreshAnnouncements();
+    await addNotification('📢 Yeni sesli anons',current.name+' ortak anons yayınladı.','anons');
+    await writeLog(current.name+' ortak sesli anons yayınladı.');
+    speakText(text);
+  }catch(e){alert('Anons yayınlanamadı: '+String(e.message||e).slice(0,180));}
+}
+
+async function refreshNews(){
+  if(!sb)return;
+  try{
+    const data=await api('dolluk_newspapers?select=id,title,author,created_at,file_url&order=created_at.desc&limit=50');
+    news=data||[];
+    $('newsCount').textContent=news.length;
+    setStatus('newsStatus','☁️ Ortak Döllük Gazetesi aktif.','ok');
+    $('newsList').innerHTML=news.length?news.map(n=>
+      '<div class="news"><h3>📰 '+esc(n.title)+'</h3>'+
+      '<div class="meta">Yayınlayan: '+esc(n.author)+' • '+esc(new Date(n.created_at).toLocaleString('tr-TR'))+'</div>'+
+      '<a href="'+esc(n.file_url)+'" target="_blank" rel="noopener"><button class="full">📄 PDF\'yi Aç</button></a></div>'
+    ).join(''):'<div class="notice">Henüz gazete yayınlanmadı.</div>';
+  }catch(e){
+    setStatus('newsStatus','Gazete yüklenemedi: '+String(e.message||e).slice(0,160),'bad');
+  }
+}
+
+async function publishPDF(){
+  if(!current||current.name!=='Aras Altınbafra'){alert('Gazete PDF yayınlama yetkisi yalnızca Aras Altınbafra’dadır.');return;}
+  if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+  const file=$('pdfFile').files[0];
+  const title=$('pdfTitle').value.trim()||(file?file.name:'Döllük Gazetesi');
+  if(!file){alert('Önce PDF seç.');return;}
+  if(file.type!=='application/pdf'){alert('Sadece PDF kabul edilir.');return;}
+  try{
+    const fileUrl=await storageUpload(file);
+    await api('dolluk_newspapers',{
+      method:'POST',
+      headers:{'Prefer':'return=minimal'},
+      body:JSON.stringify({title,author:current.name,file_url:fileUrl})
+    });
+    $('pdfFile').value='';$('pdfTitle').value='';
+    await refreshNews();
+    await addNotification('📰 Yeni Döllük Gazetesi',current.name+' yeni bir PDF gazete yayınladı.','gazete');
+    await writeLog('Döllük Gazetesi PDF olarak ortak sisteme yayınlandı.');
+    alert('Gazete bütün bağlı cihazlarda yayınlandı.');
+  }catch(e){
+    alert('Gazete yayınlanamadı: '+String(e.message||e).slice(0,220));
+  }
+}
+
+
+async function refreshWallet(){
+  if(!sb || !current)return;
+  try{
+    await ensureWallet();
+    const data=await api('dolluk_wallets?player=eq.'+encodeURIComponent(current.name)+'&select=player,balance,active_title&limit=1');
+    wallet=data&&data.length?data[0]:{player:current.name,balance:0,active_title:''};
+    $('walletBalance').textContent=Number(wallet.balance||0).toLocaleString('tr-TR');
+    $('activeTitle').textContent=wallet.active_title||'Ünvan yok';
+    if($('shopBalance'))$('shopBalance').textContent=Number(wallet.balance||0).toLocaleString('tr-TR');
+    if($('tradeBalance'))$('tradeBalance').textContent=Number(wallet.balance||0).toLocaleString('tr-TR');
+    setStatus('walletStatus','Ortak cüzdan aktif • Bakiye kaybolmaz.','ok');
+  }catch{setStatus('walletStatus','Cüzdan yüklenemedi.','bad');}
+  await refreshInventory();
+}
+
+async function refreshInventory(){
+  if(!sb || !current)return;
+  try{inventory=await api('dolluk_inventory?player=eq.'+encodeURIComponent(current.name)+'&select=item_id,quantity&limit=100')||[];}catch{inventory=[];}
+  renderShop();
+}
+
+function inventoryQty(id){const x=inventory.find(i=>i.item_id===id);return Number(x?.quantity||0);}
+function ownedTitle(id){return inventoryQty(id)>0;}
+function shopItemById(id){return SHOP_ITEMS.find(x=>x.id===id)||SHOP_TITLES.find(x=>x.id===id);}
+
+function renderShop(){
+  if($('shopBalance'))$('shopBalance').textContent=Number(wallet.balance||0).toLocaleString('tr-TR');
+  $('titleShop').innerHTML=SHOP_TITLES.map(t=>{
+    const owned=ownedTitle(t.id), active=wallet.active_title===t.name;
+    return '<div class="shop-item"><div style="font-size:30px">'+t.emoji+'</div><h3>'+esc(t.name)+'</h3><div class="shop-price">'+t.price.toLocaleString('tr-TR')+' DL</div>'+(
+      owned?'<div class="shop-owned">✅ Sahipsin</div>':'')+(owned&&!active?'<button class="full use-title" data-id="'+t.id+'">👑 Aktif Yap</button>':'')+(active?'<div class="shop-owned">⭐ Aktif</div>':'')+(!owned?'<button class="full buy-shop" data-id="'+t.id+'">🪙 Satın Al</button>':'')+'</div>';
+  }).join('');
+
+  $('itemShop').innerHTML=SHOP_ITEMS.map(it=>'<div class="shop-item"><div style="font-size:30px">'+it.emoji+'</div><h3>'+esc(it.name)+'</h3><div class="shop-price">'+it.price.toLocaleString('tr-TR')+' DL</div><div class="shop-owned">Envanter: '+inventoryQty(it.id)+'</div><button class="full buy-shop" data-id="'+it.id+'">🪙 Satın Al</button></div>').join('');
+
+  const owned=[...SHOP_TITLES.filter(x=>ownedTitle(x.id)).map(x=>'<div class="shop-item"><b>👑 '+esc(x.name)+'</b><div class="shop-owned">Ünvan</div></div>'),...SHOP_ITEMS.filter(x=>inventoryQty(x.id)>0).map(x=>'<div class="shop-item"><b>'+x.emoji+' '+esc(x.name)+'</b><div class="shop-owned">Adet: '+inventoryQty(x.id)+'</div></div>')];
+  $('inventoryList').innerHTML=owned.join('')||'<div class="notice">Henüz eşyan yok. Mini oyunlarla DL kazan!</div>';
+  document.querySelectorAll('.buy-shop').forEach(b=>b.addEventListener('click',()=>buyShopItem(b.dataset.id)));
+  document.querySelectorAll('.use-title').forEach(b=>b.addEventListener('click',()=>activateTitle(b.dataset.id)));
+}
+
+async function ensureWallet(){
+  if(!sb||!current)return;
+  try{
+    await api('dolluk_wallets',{
+      method:'POST',
+      headers:{'Prefer':'resolution=ignore-duplicates,return=minimal'},
+      body:JSON.stringify({player:current.name,balance:0,active_title:''})
+    });
+  }catch{}
+}
+
+async function addMoney(amount,reason){
+  if(!sb||!current)return false;
+  amount=Math.round(Number(amount)||0);
+  if(amount<=0)return false;
+  try{
+    const result=await rpc('dolluk_wallet_change',{
+      p_player:current.name,
+      p_amount:amount,
+      p_reason:reason||'Para eklendi',
+      p_type:'credit',
+      p_counterparty:null
+    });
+    const newBalance=Number(result?.balance||0);
+    wallet={...wallet,balance:newBalance,player:current.name};
+    $('walletBalance').textContent=newBalance.toLocaleString('tr-TR');
+    if($('shopBalance'))$('shopBalance').textContent=newBalance.toLocaleString('tr-TR');
+    if($('tradeBalance'))$('tradeBalance').textContent=newBalance.toLocaleString('tr-TR');
+    if(reason)setStatus('walletStatus','+'+amount.toLocaleString('tr-TR')+' DL • '+reason,'ok');
+    return true;
+  }catch(e){
+    setStatus('walletStatus','Para işlemi başarısız: '+String(e.message||e).slice(0,150),'bad');
+    return false;
+  }
+}
+
+async function spendMoney(cost,reason='Harcama'){
+  if(!sb||!current)return false;
+  cost=Math.round(Number(cost)||0);
+  if(cost<=0)return false;
+  try{
+    const result=await rpc('dolluk_wallet_change',{
+      p_player:current.name,
+      p_amount:-cost,
+      p_reason:reason,
+      p_type:'debit',
+      p_counterparty:null
+    });
+    const newBalance=Number(result?.balance||0);
+    wallet={...wallet,balance:newBalance,player:current.name};
+    $('walletBalance').textContent=newBalance.toLocaleString('tr-TR');
+    if($('shopBalance'))$('shopBalance').textContent=newBalance.toLocaleString('tr-TR');
+    if($('tradeBalance'))$('tradeBalance').textContent=newBalance.toLocaleString('tr-TR');
+    return true;
+  }catch(e){
+    const msg=String(e.message||e);
+    if(msg.toLocaleLowerCase('tr-TR').includes('yeterli'))alert('Yeterli Döllük Liran yok.');
+    else alert('Para harcanamadı: '+msg.slice(0,180));
+    return false;
+  }
+}
+
+async function buyShopItem(id){
+  const item=shopItemById(id); if(!item)return;
+  if(id.startsWith('title_')&&ownedTitle(id)){alert('Bu ünvan zaten sende.');return;}
+  if(!confirm(item.name+' satın alınsın mı?'))return;
+  if(!sb||!current)return;
+  try{
+    const result=await rpc('dolluk_buy_shop_item',{p_player:current.name,p_item_id:id});
+    const qty=Number(result?.quantity||0);
+    await refreshInventory();
+    await refreshWallet();
+    await refreshMoneyLedger();
+    await writeLog(current.name+' '+item.name+' satın aldı.');
+    alert(item.name+' satın alındı! 🎉 ('+qty+' adet)');
+  }catch(e){
+    const msg=String(e.message||e);
+    alert('Satın alma başarısız: '+msg.slice(0,200));
+  }
+}
+
+async function activateTitle(id){
+  const item=SHOP_TITLES.find(x=>x.id===id); if(!item||!ownedTitle(id)||!sb)return;
+  try{await api('dolluk_wallets?player=eq.'+encodeURIComponent(current.name),{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({active_title:item.name})}); wallet.active_title=item.name; $('activeTitle').textContent=item.name; renderShop(); alert(item.name+' aktif edildi. 👑');}catch{alert('Ünvan aktif edilemedi.');}
+}
+
+async function claimDailyReward(){
+  if(!sb||!current){alert('Önce Supabase bağlantısını yap.');return;}
+  const today=new Date().toISOString().slice(0,10);
+  try{
+    const existing=await api('dolluk_daily_rewards?player=eq.'+encodeURIComponent(current.name)+'&claim_date=eq.'+today+'&select=id&limit=1');
+    if(existing&&existing.length){alert('Bugünkü 250 DL ödülünü zaten aldın.');return;}
+    if(await addMoney(250,'Günlük ödül')){await api('dolluk_daily_rewards',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({player:current.name,claim_date:today,reward:250})});}
+  }catch{alert('Günlük ödül kullanılamadı.');}
+}
+
+async function awardGameMoney(game,amount){
+  const boost=inventoryQty('game_boost')>0?2:1;
+  await addMoney(Math.max(0,Math.round(amount*boost)),game+' ödülü');
+}
+
+const WHEEL_PRIZES=[
+ {text:'+100 DL',type:'money',value:100},{text:'+500 DL',type:'money',value:500},{text:'+1.000 DL',type:'money',value:1000},{text:'50 DL',type:'money',value:50},
+ {text:'Ekstra Çark Hakkı',type:'item',value:'extra_spin'},{text:'250 DL',type:'money',value:250},{text:'+2.000 DL',type:'money',value:2000},{text:'Hiçbir şey 😭',type:'none',value:0}
+];
+
+async function spinWheel(){
+  if(wheelSpinning||!current)return; if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+  let hasExtra=inventoryQty('extra_spin');
+  if(hasExtra>0){
+    try{await api('dolluk_inventory?player=eq.'+encodeURIComponent(current.name)+'&item_id=eq.extra_spin',{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({quantity:hasExtra-1})});inventory=inventory.map(x=>x.item_id==='extra_spin'?{...x,quantity:hasExtra-1}:x);}
+    catch{}
+  }
+  wheelSpinning=true; $('spinWheel').disabled=true;
+  const index=Math.floor(Math.random()*WHEEL_PRIZES.length); const rotations=1440+(360/WHEEL_PRIZES.length)*(WHEEL_PRIZES.length-index);
+  $('wheel').style.transform='rotate('+rotations+'deg)';
+  setTimeout(async()=>{
+    const prize=WHEEL_PRIZES[index];
+    if(prize.type==='money')await awardGameMoney('Şans Çarkı',prize.value);
+    if(prize.type==='item'){const qty=inventoryQty(prize.value)+1;try{await api('dolluk_inventory',{method:'POST',headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({player:current.name,item_id:prize.value,quantity:qty})});await refreshInventory();}catch{}}
+    $('wheelResult').textContent='🎉 Kazandın: '+prize.text; wheelSpinning=false; $('spinWheel').disabled=false;
+    await addNotification('🎡 Şans Çarkı',current.name+' çarkı çevirdi ve '+prize.text+' kazandı.','oyun');
+  },2200);
+}
+
+function defaultStandings(){
+  return TEAMS.map((team,i)=>({id:i+1,team,played:0,wins:0,draws:0,losses:0,gf:0,ga:0}));
+}
+
+function calcPoints(t){return t.wins*3+t.draws}
+function calcDiff(t){return t.gf-t.ga}
+function sortStandings(list){
+  return [...list].sort((a,b)=>calcPoints(b)-calcPoints(a)||calcDiff(b)-calcDiff(a)||b.gf-a.gf||a.team.localeCompare(b.team,'tr'));
+}
+
+function renderStandings(){
+  const sorted=sortStandings(standings);
+  $('standingsBody').innerHTML=sorted.map((t,i)=>
+    '<tr><td class="rank">'+(i+1)+'</td><td class="team">'+esc(t.team)+'</td>'+
+    '<td>'+t.played+'</td><td>'+t.wins+'</td><td>'+t.draws+'</td><td>'+t.losses+'</td>'+
+    '<td>'+t.gf+'</td><td>'+t.ga+'</td><td>'+(calcDiff(t)>0?'+':'')+calcDiff(t)+'</td>'+
+    '<td><b>'+calcPoints(t)+'</b></td></tr>'
+  ).join('');
+}
+
+function renderSportsEditor(){
+  const show=!!current&&current.role==='Spor Bakanı';
+  $('sportsEditor').classList.toggle('hidden',!show);
+  if(!show)return;
+  $('editTeams').innerHTML=standings.map((t,i)=>
+    '<div class="notice"><b>'+esc(t.team)+'</b>'+
+    '<div class="edit-grid" style="margin-top:8px">'+
+    '<input data-i="'+i+'" data-f="played" type="number" min="0" value="'+t.played+'" placeholder="Oynanan">'+
+    '<input data-i="'+i+'" data-f="wins" type="number" min="0" value="'+t.wins+'" placeholder="Galibiyet">'+
+    '<input data-i="'+i+'" data-f="draws" type="number" min="0" value="'+t.draws+'" placeholder="Beraberlik">'+
+    '<input data-i="'+i+'" data-f="losses" type="number" min="0" value="'+t.losses+'" placeholder="Mağlubiyet">'+
+    '<input data-i="'+i+'" data-f="gf" type="number" min="0" value="'+t.gf+'" placeholder="Attığı Gol">'+
+    '<input data-i="'+i+'" data-f="ga" type="number" min="0" value="'+t.ga+'" placeholder="Yediği Gol">'+
+    '</div></div>'
+  ).join('');
+}
+
+async function refreshStandings(){
+  if(!sb){standings=defaultStandings();renderStandings();renderSportsEditor();return;}
+  try{
+    const data=await api('football_standings?select=id,team,played,wins,draws,losses,gf,ga&order=id.asc&limit=100');
+    standings=(data&&data.length)?data:defaultStandings();
+    renderStandings();renderSportsEditor();
+    setStatus('footballStatus','☁️ Ortak Döllük Futbol sıralaması aktif.','ok');
+  }catch(e){
+    standings=defaultStandings();renderStandings();renderSportsEditor();
+    setStatus('footballStatus','Sıralama yüklenemedi: '+String(e.message||e).slice(0,160),'bad');
+  }
+}
+
+async function saveStandings(){
+  if(!current||current.role!=='Spor Bakanı'){alert('Sıralamayı yalnızca Spor Bakanı değiştirebilir.');return;}
+  if(!sb){alert('Önce Supabase bağlantısını yap.');return;}
+
+  document.querySelectorAll('#editTeams input').forEach(inp=>{
+    const i=Number(inp.dataset.i),f=inp.dataset.f;
+    standings[i][f]=Math.max(0,Number(inp.value)||0);
+  });
+
+  try{
+    for(const t of standings){
+      await api('football_standings?team=eq.'+encodeURIComponent(t.team),{
+        method:'PATCH',
+        headers:{'Prefer':'return=minimal'},
+        body:JSON.stringify({
+          played:t.played,wins:t.wins,draws:t.draws,losses:t.losses,gf:t.gf,ga:t.ga,updated_by:'Spor Bakanı'
+        })
+      });
+    }
+    await refreshStandings();
+    await addNotification('⚽ Futbol sıralaması güncellendi','Spor Bakanı Döllük Futbol sıralamasını güncelledi.','futbol');
+    await writeLog('Spor Bakanı Döllük Futbol sıralamasını güncelledi.');
+    alert('Futbol sıralaması ortak olarak güncellendi.');
+  }catch(e){
+    alert('Sıralama kaydedilemedi: '+String(e.message||e).slice(0,200));
+  }
+}
+
+
+
+async function refreshTraffic(){
+  if(!sb||!current)return;
+  try{
+    const meta=await api('dolluk_traffic_status?select=level,road_status,updated_at&limit=1');
+    if(meta&&meta[0])trafficMeta={level:meta[0].level,road:meta[0].road_status};
+    const data=await api('dolluk_traffic_records?select=id,person,type,amount,created_by,created_at&order=created_at.desc&limit=50');
+    trafficRecords=data||[];
+    renderTraffic();
+    setStatus('trafficStatus','☁️ Ortak Döllük Trafik aktif.','ok');
+  }catch(e){
+    renderTraffic();
+    if($('trafficStatus')) setStatus('trafficStatus','Trafik verileri yüklenemedi.','bad');
+  }
+}
+
+function renderTraffic(){
+  $('activeCars').textContent=(18 + Math.floor(Math.random()*10)).toLocaleString('tr-TR');
+  $('fineCount').textContent=trafficRecords.filter(x=>Number(x.amount||0)>0).length;
+  $('trafficLevel').textContent=trafficMeta.level;
+  $('roadStatus').textContent=trafficMeta.road;
+  $('trafficLevel').className='traffic-stat '+(trafficMeta.level==='Sakin'?'traffic-good':trafficMeta.level==='Çok Yoğun'?'traffic-bad':'traffic-warn');
+  $('roadStatus').className='traffic-stat '+(trafficMeta.road==='Açık'?'traffic-good':trafficMeta.road==='Kapalı'?'traffic-bad':'traffic-warn');
+
+  const manager=!!current && current.name==='Aras Altınbafra';
+  $('trafficManager').classList.toggle('hidden',!manager);
+  if(manager){
+    $('trafficLevelInput').value=trafficMeta.level;
+    $('roadStatusInput').value=trafficMeta.road;
+    $('trafficPerson').innerHTML=PEOPLE.filter(p=>p!==current.name).map(p=>'<option>'+esc(p)+'</option>').join('');
+  }
+  $('trafficHistory').innerHTML=trafficRecords.length?trafficRecords.map(x=>
+    '<div class="notice">🚗 <b>'+esc(x.person)+'</b> • '+esc(x.type)+
+    (Number(x.amount||0)?' • <b>'+Number(x.amount).toLocaleString('tr-TR')+' DL</b>':'')+
+    '<div class="meta">Yöneten: '+esc(x.created_by)+' • '+esc(new Date(x.created_at).toLocaleString('tr-TR'))+'</div></div>'
+  ).join(''):'<div class="notice">Henüz trafik kaydı yok.</div>';
+}
+
+async function saveTrafficStatus(){
+  if(!current||current.name!=='Aras Altınbafra'){alert('Trafik yönetimi yalnızca Aras Altınbafra\'ya aittir.');return;}
+  try{
+    const level=$('trafficLevelInput').value, road=$('roadStatusInput').value;
+    const exists=await api('dolluk_traffic_status?select=id&limit=1');
+    if(exists&&exists.length){
+      await api('dolluk_traffic_status?id=eq.'+encodeURIComponent(exists[0].id),{method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({level,road_status:road})});
+    }else{
+      await api('dolluk_traffic_status',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({level,road_status:road})});
+    }
+    trafficMeta={level,road};
+    await refreshTraffic();
+    await addNotification('🚦 Trafik durumu', 'Aras Altınbafra trafik durumunu güncelledi: '+level+' / '+road,'trafik');
+    await writeLog('Aras Altınbafra Döllük trafik durumunu güncelledi.');
+    alert('Trafik durumu ortak olarak güncellendi.');
+  }catch(e){alert('Trafik durumu kaydedilemedi: '+String(e.message||e).slice(0,180));}
+}
+
+async function addTrafficRecord(){
+  if(!current||current.name!=='Aras Altınbafra'){alert('Trafik kayıtlarını yalnızca Aras Altınbafra ekleyebilir.');return;}
+  const person=$('trafficPerson').value, type=$('trafficType').value, amount=Math.floor(Number($('trafficAmount').value)||0);
+  if(!person){alert('Kişi seç.');return;}
+  try{
+    await api('dolluk_traffic_records',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({person,type,amount,created_by:current.name})});
+    await refreshTraffic();
+    await addNotification('🧾 Trafik kaydı','Aras Altınbafra '+person+' için '+type+' kaydı ekledi.','trafik');
+    $('trafficAmount').value='';
+  }catch(e){alert('Trafik kaydı eklenemedi: '+String(e.message||e).slice(0,180));}
+}
+
+async function ensureStocks(){
+  if(!sb)return;
+  for(const s of STOCK_DEFAULTS){
+    try{
+      await api('dolluk_stocks',{
+        method:'POST',
+        headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({symbol:s.symbol,company:s.company,price:s.price,change_pct:0})
+      });
+    }catch{}
+  }
+}
+
+async function refreshStocks(){
+  if(!sb||!current)return;
+  try{
+    await ensureStocks();
+    let data=await api('dolluk_stocks?select=symbol,company,price,change_pct,updated_at&order=symbol.asc&limit=50');
+    stocks=data||[];
+
+    const now=Date.now();
+    // Update market about every 20 seconds. It is an intentionally simple toy-market.
+    for(const s of stocks){
+      const age=now-new Date(s.updated_at||now).getTime();
+      if(age>20000){
+        const pct=(Math.random()*12)-6;
+        const old=Number(s.price||1);
+        const next=Math.max(1,Math.round(old*(1+pct/100)*100)/100);
+        try{
+          await api('dolluk_stocks?symbol=eq.'+encodeURIComponent(s.symbol),{
+            method:'PATCH',headers:{'Prefer':'return=minimal'},
+            body:JSON.stringify({price:next,change_pct:pct})
+          });
+          s.price=next;s.change_pct=pct;s.updated_at=new Date().toISOString();
+        }catch{}
+      }
+    }
+
+    holdings=await api('dolluk_stock_holdings?player=eq.'+encodeURIComponent(current.name)+'&select=symbol,quantity,avg_cost&limit=50')||[];
+    renderStocks();
+    setStatus('stockStatus','☁️ Ortak Döllük Borsası aktif.','ok');
+  }catch(e){
+    stocks=STOCK_DEFAULTS.map(x=>({...x,change_pct:0}));
+    holdings=[];renderStocks();
+    setStatus('stockStatus','Borsa yüklenemedi: '+String(e.message||e).slice(0,170),'bad');
+  }
+}
+
+function holdingQty(symbol){
+  const x=holdings.find(h=>h.symbol===symbol);
+  return Number(x?.quantity||0);
+}
+function holdingCost(symbol){
+  const x=holdings.find(h=>h.symbol===symbol);
+  return Number(x?.avg_cost||0);
+}
+function stockBySymbol(symbol){return stocks.find(x=>x.symbol===symbol)||STOCK_DEFAULTS.find(x=>x.symbol===symbol);}
+
+function renderStocks(){
+  $('marketTicker').innerHTML=stocks.slice(0,8).map(s=>{
+    const cls=Number(s.change_pct||0)>0?'stock-up':Number(s.change_pct||0)<0?'stock-down':'stock-flat';
+    const sign=Number(s.change_pct||0)>0?'+':'';
+    return '<div class="ticker-item"><b>'+esc(s.symbol)+'</b><div>'+Number(s.price).toLocaleString('tr-TR',{minimumFractionDigits:2})+' DL</div><div class="'+cls+'">'+sign+Number(s.change_pct||0).toFixed(2)+'%</div></div>';
+  }).join('');
+
+  $('stockBody').innerHTML=stocks.map(s=>{
+    const qty=holdingQty(s.symbol);
+    const cp=Number(s.change_pct||0);
+    const cls=cp>0?'stock-up':cp<0?'stock-down':'stock-flat';
+    const sign=cp>0?'+':'';
+    return '<tr>'+
+      '<td><b>'+esc(s.symbol)+'</b></td>'+
+      '<td class="team">'+esc(s.company)+'</td>'+
+      '<td>'+Number(s.price).toLocaleString('tr-TR',{minimumFractionDigits:2})+' DL</td>'+
+      '<td class="'+cls+'">'+sign+cp.toFixed(2)+'%</td>'+
+      '<td>'+qty+'</td>'+
+      '<td><button class="stockBuy" data-symbol="'+s.symbol+'">Al</button> <button class="secondary stockSell" data-symbol="'+s.symbol+'">Sat</button></td>'+
+      '</tr>';
+  }).join('');
+
+  $('portfolio').innerHTML=holdings.length
+    ? holdings.map(h=>{
+      const s=stockBySymbol(h.symbol);
+      const value=Number(h.quantity||0)*Number(s?.price||0);
+      return '<div class="notice"><b>'+esc(h.symbol)+'</b> • '+h.quantity+' adet • Ortalama: '+Number(h.avg_cost||0).toLocaleString('tr-TR',{minimumFractionDigits:2})+' DL • Değer: '+value.toLocaleString('tr-TR',{minimumFractionDigits:2})+' DL</div>';
+    }).join('')
+    : '<div class="notice">Portföyün boş.</div>';
+
+  document.querySelectorAll('.stockBuy').forEach(b=>b.addEventListener('click',()=>stockBuy(b.dataset.symbol)));
+  document.querySelectorAll('.stockSell').forEach(b=>b.addEventListener('click',()=>stockSell(b.dataset.symbol)));
+}
+
+async function stockBuy(symbol){
+  if(stockBusy||!sb||!current)return;
+  const s=stockBySymbol(symbol);if(!s)return;
+  const qty=Number(prompt(s.symbol+' için kaç adet almak istiyorsun?','1'));
+  if(!Number.isInteger(qty)||qty<=0)return;
+  const cost=Math.round(Number(s.price)*qty*100)/100;
+  if(!await spendMoney(cost))return;
+  stockBusy=true;
+  try{
+    const oldQty=holdingQty(symbol), oldAvg=holdingCost(symbol);
+    const newQty=oldQty+qty;
+    const newAvg=newQty?((oldQty*oldAvg)+(qty*Number(s.price)))/newQty:0;
+    await api('dolluk_stock_holdings',{
+      method:'POST',
+      headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({player:current.name,symbol,quantity:newQty,avg_cost:newAvg})
+    });
+    await refreshStocks();await refreshWallet();
+    await addNotification('📈 Borsa alış',current.name+' '+qty+' adet '+symbol+' aldı.','borsa');
+    alert(qty+' adet '+symbol+' alındı.');
+  }catch(e){
+    await addMoney(cost,'Borsa alış işlemi geri alındı');
+    alert('Alış işlemi kaydedilemedi: '+String(e.message||e).slice(0,180));
+  }finally{stockBusy=false;}
+}
+
+async function stockSell(symbol){
+  if(stockBusy||!sb||!current)return;
+  const s=stockBySymbol(symbol);if(!s)return;
+  const oldQty=holdingQty(symbol);
+  if(oldQty<=0){alert('Bu coinden sende yok.');return;}
+  const qty=Number(prompt(s.symbol+' için kaç adet satmak istiyorsun?','1'));
+  if(!Number.isInteger(qty)||qty<=0)return;
+  if(qty>oldQty){alert('O kadar hissen yok.');return;}
+  const revenue=Math.round(Number(s.price)*qty*100)/100;
+  stockBusy=true;
+  try{
+    const newQty=oldQty-qty;
+    if(newQty===0){
+      await api('dolluk_stock_holdings?player=eq.'+encodeURIComponent(current.name)+'&symbol=eq.'+encodeURIComponent(symbol),{
+        method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({quantity:0})
+      });
+    }else{
+      await api('dolluk_stock_holdings?player=eq.'+encodeURIComponent(current.name)+'&symbol=eq.'+encodeURIComponent(symbol),{
+        method:'PATCH',headers:{'Prefer':'return=minimal'},body:JSON.stringify({quantity:newQty})
+      });
+    }
+    await addMoney(revenue,'Borsa '+symbol+' satışı');
+    await refreshStocks();await refreshWallet();
+    await addNotification('📉 Borsa satışı',current.name+' '+qty+' adet '+symbol+' sattı.','borsa');
+    alert(qty+' adet '+symbol+' satıldı. +'+revenue.toLocaleString('tr-TR')+' DL');
+  }catch(e){alert('Satış işlemi kaydedilemedi: '+String(e.message||e).slice(0,180));}
+  finally{stockBusy=false;}
+}
+
+async function refreshLogs(){
+  if(!sb)return;
+  try{
+    const data=await api('admin_actions?select=id,actor,role,text,created_at&order=created_at.desc&limit=50');
+    logs=data||[];
+    $('actionCount').textContent=logs.length;
+    $('logs').innerHTML=logs.length?logs.map(x=>
+      '<div class="notice"><b>'+esc(x.actor)+'</b> <span class="small">('+esc(x.role)+')</span><br>'+
+      esc(x.text)+'<div class="meta">'+esc(new Date(x.created_at).toLocaleString('tr-TR'))+'</div></div>'
+    ).join(''):'<div class="notice">Henüz ortak işlem yok.</div>';
+  }catch{}
+}
+
+async function writeLog(text){
+  if(!sb||!current)return;
+  try{
+    await api('admin_actions',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({actor:current.name,role:current.role,text})});
+    await refreshLogs();
+  }catch{}
+}
+
+
+function fillPresidentTargets(){
+  if(!current||current.role!=='Cumhurbaşkanı')return;
+  const others=PEOPLE.filter(x=>x!==current.name);
+  const opts=others.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join('');
+  $('presidentMoneyTarget').innerHTML=opts;
+  $('presidentLoanTarget').innerHTML=opts;
+  $('presidentTitleTarget').innerHTML=opts;
+  $('presidentTitle').innerHTML=SHOP_TITLES.map(t=>'<option value="'+esc(t.name)+'">'+t.emoji+' '+esc(t.name)+'</option>').join('');
+}
+
+function renderPresidentSpecial(){
+  const show=!!current&&current.role==='Cumhurbaşkanı';
+  $('presidentSpecial').classList.toggle('hidden',!show);
+  if(show)fillPresidentTargets();
+}
+
+async function presidentGiveMoney(){
+  if(!current||current.role!=='Cumhurbaşkanı')return;
+  const target=$('presidentMoneyTarget').value;
+  const amount=Math.floor(Number($('presidentMoneyAmount').value)||0);
+  if(!target||amount<=0){alert('Kişi ve DL miktarı seç.');return;}
+  if(!confirm(target+' kişisine '+amount.toLocaleString('tr-TR')+' DL verilsin mi?'))return;
+  try{
+    await rpc('dolluk_president_give_money',{p_actor:'Duru Çaycı',p_target:target,p_amount:amount});
+    $('presidentMoneyAmount').value='';
+    await refreshWallet();await refreshMoneyLedger();await refreshLogs();
+    await addNotification('👑 Cumhurbaşkanlığı Özel Bütçe','Duru Çaycı, '+target+' kişisine '+amount.toLocaleString('tr-TR')+' DL verdi.','cumhurbaskani');
+    $('presidentSpecialStatus').textContent='✅ '+target+' kişisine '+amount.toLocaleString('tr-TR')+' DL verildi.';
+    alert('Özel bütçe verildi.');
+  }catch(e){alert('Özel bütçe verilemedi: '+String(e.message||e).slice(0,220));}
+}
+
+async function presidentForgiveLoan(){
+  if(!current||current.role!=='Cumhurbaşkanı')return;
+  const target=$('presidentLoanTarget').value;
+  if(!target)return;
+  if(!confirm(target+' kişisinin kredi borcu affedilsin mi?'))return;
+  try{
+    const result=await rpc('dolluk_president_forgive_loan',{p_actor:'Duru Çaycı',p_target:target});
+    await refreshSalaries();await refreshMoneyLedger();await refreshLogs();
+    await addNotification('👑 Kredi affı','Cumhurbaşkanı '+target+' kişisinin '+Number(result?.forgiven||0).toLocaleString('tr-TR')+' DL kredi borcunu affetti.','cumhurbaskani');
+    $('presidentSpecialStatus').textContent='✅ '+target+' kişisinin kredi borcu affedildi.';
+    alert('Kredi borcu affedildi.');
+  }catch(e){alert('Kredi affedilemedi: '+String(e.message||e).slice(0,220));}
+}
+
+async function presidentGiveTitle(){
+  if(!current||current.role!=='Cumhurbaşkanı')return;
+  const target=$('presidentTitleTarget').value;
+  const title=$('presidentTitle').value;
+  if(!target||!title)return;
+  if(!confirm(target+' kişisine "'+title+'" ünvanı verilsin mi?'))return;
+  try{
+    await rpc('dolluk_president_give_title',{p_actor:'Duru Çaycı',p_target:target,p_title:title});
+    await refreshWallet();await refreshInventory();await refreshLogs();
+    await addNotification('👑 Cumhurbaşkanlığı Ünvanı','Cumhurbaşkanı '+target+' kişisine '+title+' ünvanını verdi.','cumhurbaskani');
+    $('presidentSpecialStatus').textContent='✅ '+target+' kişisine '+title+' ünvanı verildi.';
+    alert('Ünvan atandı.');
+  }catch(e){alert('Ünvan atanamadı: '+String(e.message||e).slice(0,220));}
+}
+
+function renderPermissions(){
+  $('permissions').innerHTML=(ROLE_PERMISSIONS[current.role]||[]).map(p=>
+    '<div class="perm"><span>✅ '+esc(p)+'</span><span class="badge">AKTİF</span></div>'
+  ).join('');
+}
+
+function renderActions(){
+  const actions=ROLE_ACTIONS[current.role]||[];
+  $('actionArea').innerHTML='<div class="card"><h2>⚙️ '+esc(current.role)+' Yetki Merkezi</h2><div class="action-grid">'+
+    actions.map((a,i)=>'<button class="role-action" data-i="'+i+'">'+esc(a[0])+'</button>').join('')+
+    '</div></div>';
+
+  document.querySelectorAll('.role-action').forEach(btn=>{
+    btn.addEventListener('click',async()=>{
+      const item=actions[Number(btn.dataset.i)];
+      if(item[0].includes('Gazete Merkezine Git')){showPage('news');return;}
+      if(item[0].includes('Futbol Sıralamasını Aç')){showPage('football');return;}
+      await writeLog(item[1]);
+      alert(item[1]);
+    });
+  });
+}
+
+
+const MAP_PLACES = [
+  {name:'Döllük Merkez',type:'Şehir',lat:48,lon:47,emoji:'🏛️'},
+  {name:'Aldeıra',type:'Şehir',lat:25,lon:30,emoji:'🏙️'},
+  {name:'Tokat',type:'Şehir',lat:75,lon:30,emoji:'🏙️'},
+  {name:'Yozgat',type:'Şehir',lat:22,lon:72,emoji:'🏙️'},
+  {name:'Sivas',type:'Şehir',lat:77,lon:70,emoji:'🏙️'},
+  {name:'Amasya',type:'Şehir',lat:50,lon:18,emoji:'🏙️'},
+  {name:'Babaanne Salonu',type:'Özel Yer',lat:53,lon:58,emoji:'🏠'},
+  {name:'Döllük Stadyumu',type:'Spor',lat:62,lon:42,emoji:'⚽'},
+  {name:'Döllük AVM',type:'Mağaza',lat:38,lon:58,emoji:'🛒'},
+  {name:'Döllük Bankası',type:'Banka',lat:58,lon:32,emoji:'🏦'}
+];
+let mapScale=1;
+
+function renderMapResults(query=''){
+  const q=query.trim().toLocaleLowerCase('tr-TR');
+  const found=MAP_PLACES.filter(p=>!q||p.name.toLocaleLowerCase('tr-TR').includes(q));
+  $('mapResults').innerHTML=found.slice(0,8).map((p,i)=>
+    '<div class="result-item" data-place="'+esc(p.name)+'">'+p.emoji+' <b>'+esc(p.name)+'</b><div class="small">'+esc(p.type)+'</div></div>'
+  ).join('') || '<div class="notice">Sonuç bulunamadı.</div>';
+  document.querySelectorAll('.result-item').forEach(el=>{
+    el.addEventListener('click',()=>focusMapPlace(el.dataset.place));
+  });
+}
+
+function focusMapPlace(name){
+  const marker=[...document.querySelectorAll('.map-marker')].find(x=>x.dataset.name===name);
+  if(!marker)return;
+  const panel=$('mapPanel').getBoundingClientRect();
+  const mr=marker.getBoundingClientRect();
+  const bubble=$('mapBubble');
+  bubble.style.left=Math.min(panel.width-250,Math.max(10,mr.left-panel.left+15))+'px';
+  bubble.style.top=Math.min(panel.height-120,Math.max(10,mr.top-panel.top-10))+'px';
+  bubble.innerHTML='<b>'+esc(name)+'</b><div style="margin-top:5px">📍 Döllük Maps</div>';
+  bubble.style.display='block';
+  document.querySelectorAll('.map-marker').forEach(m=>m.style.zIndex=m.dataset.name===name?'6':'1');
+}
+
+function renderRouteOptions(){
+  const cities=MAP_PLACES.filter(x=>x.type==='Şehir');
+  const opts=cities.map(x=>'<option value="'+esc(x.name)+'">'+esc(x.name)+'</option>').join('');
+  $('routeFrom').innerHTML=opts;
+  $('routeTo').innerHTML=opts;
+  if(cities.length>1)$('routeTo').selectedIndex=1;
+}
+
+function showRoute(){
+  const from=$('routeFrom').value, to=$('routeTo').value;
+  if(!from||!to||from===to){$('routeResult').textContent='Farklı iki şehir seç.';return;}
+  const a=MAP_PLACES.find(x=>x.name===from), b=MAP_PLACES.find(x=>x.name===to);
+  const dx=a.lat-b.lat, dy=a.lon-b.lon;
+  const distance=Math.round(Math.sqrt(dx*dx+dy*dy)*3.1);
+  const mins=Math.max(3,Math.round(distance*1.6));
+  $('routeResult').innerHTML='🚗 <b>'+esc(from)+' → '+esc(to)+'</b><br>Yaklaşık '+distance+' km • '+mins+' dk<br>🛣️ Döllük ana yolları kullan.';
+}
+
+function zoomMap(factor){
+  mapScale=Math.min(1.45,Math.max(.8,mapScale*factor));
+  $('mapPanel').style.transform='scale('+mapScale+')';
+  $('mapPanel').style.transformOrigin='center center';
+}
+
+function showPage(which){
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  $(which).classList.remove('hidden');
+  if(which==='chat')renderMessages();
+  if(which==='news')refreshNews();
+  if(which==='football'){refreshStandings();renderSportsEditor();}
+  if(which==='games')refreshScores();
+  if(which==='shop'){refreshWallet();renderShop();}
+  if(which==='salary'){refreshSalaries();refreshWallet();}
+  if(which==='cities'){refreshCities();}
+  if(which==='announcements'){refreshAnnouncements();}
+  if(which==='notifications')refreshNotifications();
+  if(which==='maps'){renderMapResults($('mapSearch').value);renderRouteOptions();}
+  if(which==='trade'){refreshTradePeople();renderTradeItems();refreshWallet();refreshTradeHistory();}
+  if(which==='house'){refreshHouse();}
+  if(which==='stocks'){refreshStocks();}
+  if(which==='traffic'){refreshTraffic();}
+}
+
+function login(name,role){
+  current={name,role};
+  $('login').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  $('welcome').textContent=name+' — '+role;
+  $('publisher').classList.toggle('hidden',name!=='Aras Altınbafra');
+  $('presidentBanner').classList.toggle('hidden',role!=='Cumhurbaşkanı');
+  renderPermissions();renderActions();renderPresidentSpecial();loadSavedFields();refreshTradePeople();showPage('home');
+  connect();
+}
+
+function logout(){
+  current=null;
+  clearInterval(pollTimer);pollTimer=null;
+  clearInterval(actionTimer);actionTimer=null;
+  $('app').classList.add('hidden');
+  $('login').classList.remove('hidden');
+}
+
+function loadSavedFields(){
+  const c=getStoredConfig();
+  $('supabaseUrl').value=c?c.url:'';
+  $('supabaseKey').value=c?c.key:'';
+}
+
+function saveSupabase(){
+  const url=normalizeUrl($('supabaseUrl').value);
+  const key=normalizeKey($('supabaseKey').value);
+  if(!url||!key){alert('Supabase URL ve Publishable Key gerekli.');return;}
+  if(!/^https:\/\/[^\s]+\.supabase\.co$/i.test(url)){alert('Supabase URL hatalı görünüyor.');return;}
+  localStorage.setItem('dolluk_sb_url',url);
+  localStorage.setItem('dolluk_sb_key',key);
+  $('supabaseUrl').value=url;
+  $('supabaseKey').value=key;
+  connect();
+}
+
+function clearSupabase(){
+  localStorage.removeItem('dolluk_sb_url');
+  localStorage.removeItem('dolluk_sb_key');
+  sb=null;clearInterval(pollTimer);pollTimer=null;
+  loadSavedFields();
+  setStatus('globalStatus','Supabase bağlantısı temizlendi.','warn');
+}
+
+function clickScoreUpload(game,score){
+  if(!sb||!current||score<=0)return;
+  api('mini_game_scores',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({game,player:current.name,role:current.role,score})}).then(refreshScores).catch(()=>{});
+}
+
+async function refreshScores(){
+  if(!sb)return;
+  try{
+    const data=await api('mini_game_scores?select=id,game,player,role,score,created_at&order=score.desc&limit=30');
+    const best={};
+    (data||[]).forEach(x=>{
+      const key=x.game+'|'+x.player;
+      if(!best[key]||x.score>best[key].score)best[key]=x;
+    });
+    const list=Object.values(best).sort((a,b)=>b.score-a.score).slice(0,15);
+    $('scoreList').innerHTML=list.length?list.map(x=>
+      '<div class="top-score"><span>🎮 '+esc(x.game)+' — '+esc(x.player)+'</span><b>'+x.score+'</b></div>'
+    ).join(''):'<div class="notice">Henüz rekor yok.</div>';
+  }catch{}
+}
+
+/* Penaltı */
+let penaltyScore=0;
+document.querySelectorAll('.penalty-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  const keeper=['sol','orta','sag'][Math.floor(Math.random()*3)];
+  if(btn.dataset.dir===keeper){
+    $('penaltyResult').textContent='🧤 Kurtardı! '+penaltyScore;
+  }else{
+    penaltyScore++;
+    $('penaltyResult').textContent='⚽ Gol! '+penaltyScore+' • +20 DL';
+    clickScoreUpload('Penaltı',penaltyScore);
+    awardGameMoney('Penaltı',20);
+  }
+}));
+
+/* Sayı tahmini */
+let secret=Math.floor(Math.random()*20)+1;
+let attempts=0;
+$('guessBtn').addEventListener('click',()=>{
+  const n=Number($('guessInput').value);
+  if(!n||n<1||n>20){$('guessResult').textContent='1-20 arasında bir sayı gir.';return;}
+  attempts++;
+  if(n===secret){
+    $('guessResult').textContent='🎉 Bildin! Deneme: '+attempts+' • +100 DL';
+    clickScoreUpload('Sayı Tahmini',Math.max(1,21-attempts));
+    awardGameMoney('Sayı Tahmini',100);
+    secret=Math.floor(Math.random()*20)+1;attempts=0;
+  }else if(n<secret)$('guessResult').textContent='⬆️ Daha büyük.';
+  else $('guessResult').textContent='⬇️ Daha küçük.';
+});
+
+/* 10 saniye tıklama */
+let clickRunning=false,clickScore=0,clickTimer=null;
+$('clickStart').addEventListener('click',()=>{
+  if(clickRunning)return;
+  clickRunning=true;clickScore=0;
+  $('clickScore').textContent='0';
+  $('clickResult').textContent='10 saniye başladı!';
+  $('clickBtn').disabled=false;$('clickStart').disabled=true;
+  clickTimer=setTimeout(()=>{
+    clickRunning=false;$('clickBtn').disabled=true;$('clickStart').disabled=false;
+    $('clickResult').textContent='🏁 Sonuç: '+clickScore+' tıklama • +'+clickScore+' DL';
+    clickScoreUpload('10 Saniye Tıkla',clickScore);
+    awardGameMoney('10 Saniye Tıkla',clickScore);
+    refreshScores();
+  },10000);
+});
+$('clickBtn').addEventListener('click',()=>{
+  if(clickRunning){clickScore++;$('clickScore').textContent=clickScore;}
+});
+
+
+function showToast(title,body){
+  const old=document.getElementById('dollukToast');
+  if(old)old.remove();
+  const d=document.createElement('div');
+  d.id='dollukToast';
+  d.style.cssText='position:fixed;right:18px;bottom:18px;z-index:9999;max-width:340px;background:#163a5a;color:#fff;padding:14px 16px;border-radius:14px;box-shadow:0 10px 30px #0004;font-size:14px';
+  d.innerHTML='<b>🔔 '+esc(title)+'</b><div style="margin-top:5px">'+esc(body)+'</div>';
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),5000);
+}
+
+
+async function enableBrowserNotifications(){
+  if(!('Notification' in window)){
+    $('browserNotificationStatus').textContent='Bu tarayıcı cihaz bildirimlerini desteklemiyor.';
+    return;
+  }
+  try{
+    const permission=await Notification.requestPermission();
+    $('browserNotificationStatus').textContent =
+      permission==='granted' ? '✅ Bildirim izni açık.' :
+      permission==='denied' ? '❌ Bildirim izni reddedildi.' :
+      'Bildirim izni beklemede.';
+  }catch{
+    $('browserNotificationStatus').textContent='Bildirim izni açılamadı.';
+  }
+}
+
+
+$('mapSearch').addEventListener('input',e=>renderMapResults(e.target.value));
+$('showRoute').addEventListener('click',showRoute);
+$('mapZoomIn').addEventListener('click',()=>zoomMap(1.08));
+$('mapZoomOut').addEventListener('click',()=>zoomMap(.92));
+$('mapReset').addEventListener('click',()=>{mapScale=1;$('mapPanel').style.transform='scale(1)';$('mapBubble').style.display='none';});
+document.querySelectorAll('.map-marker').forEach(m=>m.addEventListener('click',()=>focusMapPlace(m.dataset.name)));
+renderMapResults();
+renderRouteOptions();
+
+/* Events */
+document.querySelectorAll('.login-btn').forEach(btn=>btn.addEventListener('click',()=>login(btn.dataset.name,btn.dataset.role)));
+document.querySelectorAll('[data-page]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.page)));
+$('logoutBtn').addEventListener('click',logout);
+$('sendMessage').addEventListener('click',sendMessage);
+$('messageText').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}
+});
+$('saveSupabase').addEventListener('click',saveSupabase);
+$('clearSupabase').addEventListener('click',clearSupabase);
+$('publishPdf').addEventListener('click',publishPDF);
+$('saveStandings').addEventListener('click',saveStandings);
+$('presidentGiveMoney').addEventListener('click',presidentGiveMoney);
+$('presidentForgiveLoan').addEventListener('click',presidentForgiveLoan);
+$('presidentGiveTitle').addEventListener('click',presidentGiveTitle);
+$('dailyRewardBtn').addEventListener('click',claimDailyReward);
+$('spinWheel').addEventListener('click',spinWheel);
+$('markAllRead').addEventListener('click',markAllNotifications);
+$('refreshNotifications').addEventListener('click',refreshNotifications);
+$('enableBrowserNotifications').addEventListener('click',enableBrowserNotifications);
+$('saveCities').addEventListener('click',saveCities);
+$('publishAnnouncement').addEventListener('click',publishAnnouncement);
+$('saveTrafficStatus').addEventListener('click',saveTrafficStatus);
+$('addTrafficRecord').addEventListener('click',addTrafficRecord);
+$('speakAnnouncement').addEventListener('click',()=>speakText($('announcementText').value.trim()));
+$('withdrawSalary').addEventListener('click',()=>withdrawSalary($('withdrawAmount').value));
+$('withdrawAllSalary').addEventListener('click',withdrawAllSalary);
+$('takeLoan').addEventListener('click',takeLoan);
+$('repayLoan').addEventListener('click',()=>repayLoan($('repayAmount').value));
+$('repayAllLoan').addEventListener('click',()=>{const row=salaryRecordFor(current?.name);repayLoan(Number(row?.loan_balance||0));});
+
+$('sendMoneyTrade').addEventListener('click',sendMoneyTrade);
+$('sendItemTrade').addEventListener('click',sendItemTrade);
+</script>
+
+<script>
+(function(){
+  const splash=document.getElementById('appSplash');
+  window.addEventListener('load',()=>{
+    setTimeout(()=>{if(splash){splash.style.opacity='0';setTimeout(()=>splash.remove(),380)}},650);
+  });
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  }
+
+  let deferredPrompt=null;
+  window.addEventListener('beforeinstallprompt',(e)=>{
+    e.preventDefault(); deferredPrompt=e;
+    const bar=document.getElementById('pwaInstallBar');
+    if(bar)bar.style.display='block';
+  });
+  const installBtn=document.getElementById('pwaInstallBtn');
+  if(installBtn)installBtn.addEventListener('click',async()=>{
+    if(!deferredPrompt)return;
+    deferredPrompt.prompt();
+    try{await deferredPrompt.userChoice;}catch{}
+    deferredPrompt=null;
+    const bar=document.getElementById('pwaInstallBar');
+    if(bar)bar.style.display='none';
+  });
+})();
+</script>
+
+</body>
+</html>
